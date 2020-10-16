@@ -14,7 +14,7 @@ Fetch repository:
 Start a bitbucket cloud session:
 
 ```powershell
-Import-Module BitbucketCloudCLI -Force
+Import-Module .\BitbucketCloud.psm1 -Force
 
 New-BitBucketSession `
     -Username jsoliveir `
