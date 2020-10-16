@@ -20,7 +20,7 @@ Function Get-BitbucketContent{
         $request = Invoke-RestMethod `
         -ErrorAction Ignore `
         -Uri "$(Get-BitbucketApi)/2.0/repositories/$($Repository.Workspace)/$($Repository.Name)/src/${Branch}/${Path}" `
-        -Headers @{Authorization = "Basic $(Get-BitbucketCredentials)" } 
+        -Headers @{Authorization = "Basic $(Get-BitbucketToken)" } 
     }catch{
         $request = $null
     }

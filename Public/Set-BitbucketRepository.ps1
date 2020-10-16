@@ -10,6 +10,6 @@ Function Set-BitbucketRepository {
     -Body "{ `"is_private`":true, `"project`": { `"key`":`"$ProjectKey`"} }" `
     -Headers @{
         "Content-Type"= "application/json"
-        Authorization = "Basic $(Get-BitbucketCredentials)" 
+        Authorization = "Basic $(Get-BitbucketToken)" 
     }
 }

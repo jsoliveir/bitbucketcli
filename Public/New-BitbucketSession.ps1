@@ -1,9 +1,10 @@
 Function New-BitbucketSession {
     param([Parameter(Mandatory=$true)] [String] $Username,
-          [Parameter(Mandatory=$false)] [SecureString] $Password `
-            = (Read-Host "Password" -AsSecureString))
+    [Parameter(Mandatory=$false)] [SecureString] $Password = (Read-Host "Password" -AsSecureString),
+    [Parameter(Mandatory=$false)] [String] $Server = "https://api.bitbucket.org")
 
-    Set-BitbucketCredentials `
+    Add-BitbucketSession `
+        -Server   $Server `
         -Username $Username `
         -Password $Password
 

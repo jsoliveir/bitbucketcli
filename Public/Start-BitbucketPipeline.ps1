@@ -7,7 +7,7 @@ Function Start-Pipeline{
     $request = Invoke-RestMethod `
     -Method POST `
     -Uri "$(Get-BitbucketApi)/2.0/repositories/$($Repository.Workspace)/$($Repository.Name)/pipelines/" `
-    -Headers @{ Authorization = "Basic $(Get-BitbucketCredentials)"} `
+    -Headers @{ Authorization = "Basic $(Get-BitbucketToken)"} `
     -ContentType "application/json" `
     -Body "{
       `"target`": {

@@ -4,7 +4,7 @@ Function Enable-BitbucketPipelines{
     Invoke-RestMethod `
         -Method PUT `
         -Uri "$(Get-BitbucketApi)/2.0/repositories/$($Repository.Workspace)/$($Repository.Name)/pipelines_config" `
-        -Headers @{ Authorization = "Basic $(Get-BitbucketCredentials)"} `
+        -Headers @{ Authorization = "Basic $(Get-BitbucketToken)"} `
         -ContentType "application/json" `
         -Body '{ "enabled":"true" }' `
     | Out-Null

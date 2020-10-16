@@ -14,7 +14,7 @@ Function Set-BitbucketContent{
     $payload = @()
     $payload += "curl --insecure --fail"
     $payload += "$(Get-BitbucketApi)/2.0/repositories/$($Repository.Workspace)/$($Repository.Name)/src"
-    $payload += "-H 'Authorization: Basic $(Get-BitbucketCredentials)'"
+    $payload += "-H 'Authorization: Basic $(Get-BitbucketToken)'"
     $payload += "-H 'ContentType: application/x-www-form-urlencoded'"
     $payload += "-F 'branch=$Branch'"
     $payload += "-F 'message=$Message'"
