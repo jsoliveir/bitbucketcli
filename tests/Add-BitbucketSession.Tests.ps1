@@ -7,7 +7,7 @@ Describe "Add-BitbucketSession" {
       Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
       Add-BitbucketSession -Server "test" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
         @($global:BITBUCKETCLI_SESSIONS).Count | Should -BeExactly 1 
-      }
+    }
     It "must_be_valid" {
       Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
       Add-BitbucketSession -Server "test" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
@@ -22,7 +22,7 @@ Describe "Add-BitbucketSession" {
       Add-BitbucketSession -Server "test" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
       Add-BitbucketSession -Server "test2" -Username "test2" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
       @($global:BITBUCKETCLI_SESSIONS).Count | Should -BeExactly 2
-      @($global:BITBUCKETCLI_SESSIONS | Where Active -eq $true).Count | Should -BeExactly 1 
+      @($global:BITBUCKETCLI_SESSIONS | Where-Object Active -eq $true).Count | Should -BeExactly 1 
     }
   }
   Context "passwords" {
