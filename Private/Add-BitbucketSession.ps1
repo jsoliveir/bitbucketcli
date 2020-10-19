@@ -16,6 +16,7 @@ Function Add-BitbucketSession {
         | Where-Object { $_.Server -notlike "$Server" })
 
     $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject] @{
+        Id       = @($global:BITBUCKETCLI_SESSIONS).Count+1
         Active   = $true
         Server   = $Server
         Version  = $Version

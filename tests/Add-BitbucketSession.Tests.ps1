@@ -15,6 +15,14 @@ Describe "Add-BitbucketSession" {
       $global:BITBUCKETCLI_SESSIONS[0].Username | Should -Be "test" 
       $global:BITBUCKETCLI_SESSIONS[0].Password | Should -BeOfType [String]
     }
+    It "must_create_a_session_id" {
+      $global:BITBUCKETCLI_SESSIONS = @();
+      $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
+          Active = $false
+      });
+      Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
+      $global:BITBUCKETCLI_SESSIONS[1].Id | Should -BeExactly 2 
+    }
   }
   Context "sessions" {
     It "must_be_only_one_active" {
