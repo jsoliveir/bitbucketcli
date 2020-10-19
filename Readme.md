@@ -26,3 +26,7 @@ Get Repositories:
 ```powershell
 Get-BitbucketRepositories -Workspace "jsoliveir" | Format-Table
 ```
+
+## Available functions
+
+_Avaliable functions are available in the Public/ directory in this repository_ 
