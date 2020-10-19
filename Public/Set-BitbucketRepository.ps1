@@ -6,7 +6,7 @@ Function Set-BitbucketRepository {
           [Parameter(Mandatory=$true)] [String] $ProjectKey)
     return Invoke-RestMethod `
     -Method PUT `
-    -Uri "$(Get-BitbucketApi)/2.0/repositories/$Workspace/$Name" `
+    -Uri "$(Get-BitbucketBaseUrl)/repositories/$Workspace/$Name" `
     -Body "{ `"is_private`":true, `"project`": { `"key`":`"$ProjectKey`"} }" `
     -Headers @{
         "Content-Type"= "application/json"

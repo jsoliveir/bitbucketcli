@@ -8,7 +8,7 @@ Function Get-BitbucketRepositories {
     while($true){
         $request = Invoke-RestMethod `
             -Headers @{Authorization = "Basic $(Get-BitbucketToken)" } `
-            -Uri "$(Get-BitbucketApi)/2.0/repositories/${Workspace}?pagelen=${PageLen}&page=${Page}"
+            -Uri "$(Get-BitbucketBaseUrl)/repositories/${Workspace}?pagelen=${PageLen}&page=${Page}"
         
         if(!$request.Values) {break;}
 

@@ -3,7 +3,7 @@ Function Get-BitbucketBranches{
     
     return (Invoke-RestMethod `
         -Method GET `
-        -Uri "$(Get-BitbucketApi)/2.0/repositories/$($Repository.Workspace)/$($Repository.Name)/refs/branches/" `
+        -Uri "$(Get-BitbucketBaseUrl)/repositories/$($Repository.Workspace)/$($Repository.Name)/refs/branches/" `
         -Headers @{ Authorization = "Basic $(Get-BitbucketToken)"}).Values `
     | Select-Object `
         @{n="Name";e={$_.name}},`

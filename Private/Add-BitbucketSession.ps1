@@ -1,7 +1,8 @@
 Function Add-BitbucketSession {
     param([Parameter(Mandatory=$true)] [String] $Username,
           [Parameter(Mandatory=$true)] [SecureString] $Password,
-          [Parameter(Mandatory=$true)] [String] $Server)
+          [Parameter(Mandatory=$true)] [String] $Server,
+          [Parameter(Mandatory=$true)] [String] $Version)
     
     if(!$global:BITBUCKETCLI_SESSIONS){
         $global:BITBUCKETCLI_SESSIONS = @()
@@ -17,6 +18,7 @@ Function Add-BitbucketSession {
     $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject] @{
         Active   = $true
         Server   = $Server
+        Version  = $Version
         Username = $Username
         Password = ($Password | ConvertFrom-SecureString)
     });

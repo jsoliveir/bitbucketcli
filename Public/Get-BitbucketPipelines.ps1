@@ -4,6 +4,6 @@ Function Get-BitbucketPipelines{
  
     return (Invoke-RestMethod `
          -Method GET `
-         -Uri "$(Get-BitbucketApi)/2.0/repositories/$($Repository.Workspace)/$($Repository.Name)/pipelines/" `
+         -Uri "$(Get-BitbucketBaseUrl)/repositories/$($Repository.Workspace)/$($Repository.Name)/pipelines/" `
          -Headers @{ Authorization = "Basic $(Get-BitbucketToken)"}).Values
  }
