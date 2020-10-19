@@ -11,6 +11,7 @@ Describe "Add-BitbucketSession" {
     It "must_be_valid" {
       Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
       Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
+      $global:BITBUCKETCLI_SESSIONS[0].Id | Should -Not -Be $Null 
       $global:BITBUCKETCLI_SESSIONS[0].Active | Should -Be $true 
       $global:BITBUCKETCLI_SESSIONS[0].Username | Should -Be "test" 
       $global:BITBUCKETCLI_SESSIONS[0].Password | Should -BeOfType [String]
