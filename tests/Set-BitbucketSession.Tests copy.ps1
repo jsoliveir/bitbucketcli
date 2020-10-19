@@ -6,17 +6,14 @@ Describe "Set-BitbucketSession" {
         $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
             Active = $true
             Server = "server"
-            Username = "User"
         })
         $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject]@{
             Active = $false
             Server = "server2"
-            Username = "User2"
         })
         $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject]@{
             Active = $true
             Server = "server3"
-            Username = "User3"
         })
     }
     Context "tokens" {
