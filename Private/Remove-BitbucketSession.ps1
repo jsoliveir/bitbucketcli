@@ -1,9 +1,7 @@
 Function Remove-BitbucketSession{
-    param([Parameter(Mandatory=$true)]  [String] $Username,
-          [Parameter(Mandatory=$true)]  [SecureString] $Password,
-          [Parameter(Mandatory=$false)] [String] $Server = "https://api.bitbucket.org")
+    param([Parameter(Mandatory=$true)] [String] $Id)
 
     $global:BITBUCKETCLI_SESSIONS =  $env:BITBUCKETCLI_SESSIONS `
-    | Where-Object { $_.Server -notlike "$Server" }
+    | Where-Object { $_.Id -notlike "$Id" }
  
 }
