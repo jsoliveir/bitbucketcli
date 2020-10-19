@@ -19,6 +19,15 @@ Import-Module .\BitbucketCloud.psm1 -Force
 New-BitBucketSession `
     -Username jsoliveir `
     -Password (Read-Host "Password" -AsSecureString)
+
+or
+
+New-BitBucketSession `
+    -Username jsoliveir `
+    -Password (Read-Host "Password" -AsSecureString) `
+    -Server "https://api.bitbucket.org" `
+    -Version "2.0"
+
 ```
 
 Get Repositories:
