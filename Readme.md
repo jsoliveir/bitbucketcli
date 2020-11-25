@@ -5,8 +5,8 @@
 Fetch repository:
 
 ```powershell
-  git clone https://github.com/jsoliveir/BitbucketCloudCLI.git 
-  cd BitbucketCloudCLI
+  git clone https://github.com/jsoliveir/BitbucketCLI.git 
+  Import-Module .\BitbucketCLI\Module.psm1 -Force
 ```
 
 ### Getting Started
@@ -16,13 +16,13 @@ Start a bitbucket cloud session:
 ```powershell
 Import-Module .\BitbucketCloud.psm1 -Force
 
-New-BitBucketSession `
+New-BitbucketSession `
     -Username jsoliveir `
     -Password (Read-Host "Password" -AsSecureString)
 
 or
 
-New-BitBucketSession `
+New-BitbucketSession `
     -Username jsoliveir `
     -Password (Read-Host "Password" -AsSecureString) `
     -Server "https://api.bitbucket.org" `
@@ -33,7 +33,8 @@ New-BitBucketSession `
 Get Repositories:
 
 ```powershell
-Get-BitbucketRepositories -Workspace "jsoliveir" | Format-Table
+Get-BitbucketCloudRepositories -Workspace "jsoliveir" | Format-Table
+Get-BitbucketServerRepositories -Project "API" | Format-Table
 ```
 
 ## Available functions
