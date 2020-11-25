@@ -10,8 +10,4 @@ Function New-BitbucketSession {
         -Username $Username `
         -Password $Password `
         -Version $Version
-
-    if(Get-BitbucketUser){
-        Write-Information "Info : Loggin succeeded";
-    }
 }

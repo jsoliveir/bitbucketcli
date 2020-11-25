@@ -1,14 +1,16 @@
 
-Function Get-BitbucketRepositories {
-    param([Parameter(Mandatory=$true)] [String] $Workspace,
+Function Get-BitbucketCloudRepositories {
+    param(
+        [Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
+        [Parameter(Mandatory=$true)] [String] $Workspace,
         $PageLen=100,
         $Page=1)
     $repositories= @();
     
     while($true){
         $request = Invoke-RestMethod `
-            -Headers @{Authorization = "Basic $(Get-BitbucketToken)" } `
-            -Uri "$(Get-BitbucketBaseUrl)/repositories/${Workspace}?pagelen=${PageLen}&page=${Page}"
+            -Headers @{Authorization = "Basic $($Session.AccessToken)" } `
+            -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}?pagelen=${PageLen}&page=${Page}"
         
         if(!$request.Values) {break;}
 

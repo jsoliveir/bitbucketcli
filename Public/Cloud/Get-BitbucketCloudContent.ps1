@@ -1,8 +1,11 @@
 
-Function Get-BitbucketContent{
-    param([Parameter(Mandatory=$true)] [PSCustomObject] $Repository,
+Function Get-BitbucketCloudContent{
+    param(
+          [Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
+          [Parameter(Mandatory=$true)] [PSCustomObject] $Repository,
           [Parameter(Mandatory=$true)] [String] $Path,
-          [Parameter(Mandatory=$true)] [String] $Branch)
+          [Parameter(Mandatory=$true)] [String] $Branch
+    )
 
     $Branch = $Branch -replace "refs/heads/",""
 
@@ -19,8 +22,8 @@ Function Get-BitbucketContent{
     try{
         $request = Invoke-RestMethod `
         -ErrorAction Ignore `
-        -Uri "$(Get-BitbucketBaseUrl)/repositories/$($Repository.Workspace)/$($Repository.Name)/src/${Branch}/${Path}" `
-        -Headers @{Authorization = "Basic $(Get-BitbucketToken)" } 
+        -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/src/${Branch}/${Path}" `
+        -Headers @{Authorization = "Basic $($Session.AccessToken)" } 
     }catch{
         $request = $null
     }

@@ -1,15 +1,15 @@
 
-Function Set-BitbucketRepository {
-    param(
+Function Set-BitbucketCloudRepository {
+    param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
           [Parameter(Mandatory=$true)] [String] $Workspace,
           [Parameter(Mandatory=$true)] [String] $Name,
           [Parameter(Mandatory=$true)] [String] $ProjectKey)
     return Invoke-RestMethod `
     -Method PUT `
-    -Uri "$(Get-BitbucketBaseUrl)/repositories/$Workspace/$Name" `
+    -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Name" `
     -Body "{ `"is_private`":true, `"project`": { `"key`":`"$ProjectKey`"} }" `
     -Headers @{
         "Content-Type"= "application/json"
-        Authorization = "Basic $(Get-BitbucketToken)" 
+        Authorization = "Basic $($Session.AccessToken)" 
     }
 }

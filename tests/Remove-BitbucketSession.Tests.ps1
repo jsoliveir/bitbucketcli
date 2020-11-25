@@ -1,7 +1,7 @@
 
 Describe "Remove-BitbucketSession" {
     BeforeAll {
-        . "..\**\Remove-BitbucketSession.ps1" 
+        . "$(Split-Path ${PSScriptRoot})\**\Remove-BitbucketSession.ps1" 
         $global:BITBUCKETCLI_SESSIONS = @()
         $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
             Id     = 1

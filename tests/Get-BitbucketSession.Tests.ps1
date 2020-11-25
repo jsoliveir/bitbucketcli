@@ -1,6 +1,6 @@
 Describe "Get-BitbucketSession" {
     BeforeAll {
-        . "..\**\Get-BitbucketSession.ps1"
+        . "$(Split-Path ${PSScriptRoot})\**\Get-BitbucketSession.ps1"
         Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
         $global:BITBUCKETCLI_SESSIONS = @()
         $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{

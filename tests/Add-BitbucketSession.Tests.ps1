@@ -1,6 +1,7 @@
 Describe "Add-BitbucketSession" {
   BeforeAll {
-    . "..\**\Add-BitbucketSession.ps1"
+    . "$(Split-Path ${PSScriptRoot})\**\Get-BitbucketToken.ps1"
+    . "$(Split-Path ${PSScriptRoot})\**\Add-BitbucketSession.ps1"
   }
   Context "environment_variables" {
     It "must_be_set" {
@@ -14,7 +15,7 @@ Describe "Add-BitbucketSession" {
       $global:BITBUCKETCLI_SESSIONS[0].Id | Should -Not -Be $Null 
       $global:BITBUCKETCLI_SESSIONS[0].Active | Should -Be $true 
       $global:BITBUCKETCLI_SESSIONS[0].Username | Should -Be "test" 
-      $global:BITBUCKETCLI_SESSIONS[0].Password | Should -BeOfType [String]
+      $global:BITBUCKETCLI_SESSIONS[0].AccessToken | Should -BeOfType [String]
     }
     It "must_create_a_session_id" {
       $global:BITBUCKETCLI_SESSIONS = @();
@@ -38,8 +39,7 @@ Describe "Add-BitbucketSession" {
     It "must_be_secured_string" {
       Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
       Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
-      {ConvertTo-SecureString $global:BITBUCKETCLI_SESSIONS[0].Password} | Should -Not -Throw 
-      {ConvertTo-SecureString $global:BITBUCKETCLI_SESSIONS[0].Password} | Should -Not -BeNullOrEmpty
+      $global:BITBUCKETCLI_SESSIONS[0].AccessToken | Should -Not -BeNullOrEmpty
     }
   }
 }

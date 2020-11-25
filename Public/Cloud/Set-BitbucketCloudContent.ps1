@@ -1,5 +1,6 @@
-Function Set-BitbucketContent{
-    param([Parameter(Mandatory=$true)] [PSCustomObject] $Repository,
+Function Set-BitbucketCloudContent{
+    param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
+          [Parameter(Mandatory=$true)] [PSCustomObject] $Repository,
           [Parameter(Mandatory=$false)] [String[]] $FilesToDelete,
           [Parameter(Mandatory=$false)] [String[]] $FilesToAdd,
           [String] $Message,
@@ -13,8 +14,8 @@ Function Set-BitbucketContent{
     
     $payload = @()
     $payload += "curl --insecure --fail"
-    $payload += "$(Get-BitbucketBaseUrl)/repositories/$($Repository.Workspace)/$($Repository.Name)/src"
-    $payload += "-H 'Authorization: Basic $(Get-BitbucketToken)'"
+    $payload += "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/src"
+    $payload += "-H 'Authorization: Basic $($Session.AccessToken)'"
     $payload += "-H 'ContentType: application/x-www-form-urlencoded'"
     $payload += "-F 'branch=$Branch'"
     $payload += "-F 'message=$Message'"
