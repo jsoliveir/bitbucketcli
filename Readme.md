@@ -42,7 +42,7 @@ Get-BitbucketServerRepositories `
 
 ### Available functions
 
->_More functions can be found in the Public/ directory in this repository_ 
+>_More functions can be found in the [Public/](Public/) directory in this repository_ 
 
 # Mirroring repositories to bitbucket cloud
 
