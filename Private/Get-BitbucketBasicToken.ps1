@@ -3,10 +3,10 @@ Function Get-BitbucketBasicToken {
           [Parameter(Mandatory=$true)] [SecureString] $Password)
          
     #decrypt secure string
-    $CREDENTIAL = [System.Net.NetworkCredential]::new(`
-        [string]::Empty , $Password)
+    $dPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
 
-    return "${Username}:$($CREDENTIAL.Password)" `
-        | ConvertTo-CBase64 -Encoding ([System.Text.Encoding]::UTF8)
+    return [Convert]::ToBase64String(
+        [Text.Encoding]::ASCII.GetBytes("${Username}:${dPassword}"))
 }
 

@@ -3,12 +3,12 @@ Function Get-BitbucketOAuthToken {
           [Parameter(Mandatory=$true)] [SecureString] $Password)
     
     #decrypt secure string
-    $CREDENTIAL = [System.Net.NetworkCredential]::new(`
-        [string]::Empty , $Password)
+    $dPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
     
     #base 64 encodend credential
-    $BITBUCKET_BASIC_CREDENTIAL = "${Username}:$($CREDENTIAL.Password)" `
-    | ConvertTo-CBase64 -Encoding ([System.Text.Encoding]::UTF8)
+    $BITBUCKET_BASIC_CREDENTIAL = [Convert]::ToBase64String(
+        [Text.Encoding]::ASCII.GetBytes( "${Username}:${dPassword}"))
 
     #get bitbucket.org pushing credentials
     $BITBUCKET_OAUTH = (Invoke-RestMethod -Method POST `
