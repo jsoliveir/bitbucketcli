@@ -9,7 +9,7 @@ Function Get-BitbucketCloudRepositories {
     
     while($true){
         $request = Invoke-RestMethod `
-            -Headers @{Authorization = "Basic $($Session.AccessToken)" } `
+            -Headers @{Authorization = $Session.Authorization } `
             -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}?pagelen=${PageLen}&page=${Page}"
         
         if(!$request.Values) {break;}
@@ -26,6 +26,5 @@ Function Get-BitbucketCloudRepositories {
                 @{n="Rest";e={$_}}
         $Page++
     }
-    Write-Host "$($repositories.Count) repositories found"
     return $repositories 
 }

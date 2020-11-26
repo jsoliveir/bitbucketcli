@@ -1,15 +1,16 @@
 
-Function Set-BitbucketCloudRepository {
+Function New-BitbucketCloudRepository {
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
           [Parameter(Mandatory=$true)] [String] $Workspace,
           [Parameter(Mandatory=$true)] [String] $Name,
-          [Parameter(Mandatory=$true)] [String] $ProjectKey)
+          [Parameter(Mandatory=$true)] [String] $ProjectKey,
+          [Parameter(Mandatory=$false)] [String] $MainBranch="master")
     return Invoke-RestMethod `
     -Method PUT `
     -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Name" `
-    -Body "{ `"is_private`":true, `"project`": { `"key`":`"$ProjectKey`"} }" `
+    -Body "{ `"is_private`":true, `"project`": { `"key`":`"$ProjectKey`"}  }" `
     -Headers @{
         "Content-Type"= "application/json"
-        Authorization = "Basic $($Session.AccessToken)" 
+        Authorization = $Session.Authorization 
     }
 }

@@ -5,12 +5,12 @@ Function Get-BitbucketServerRepositories {
     $projects = Get-BitbucketServerProjects
 
     foreach ( $project in $projects ) {
-        $repositories += @((Invoke-RestMethod -Verbose `
+        $repositories += @((Invoke-RestMethod `
             -Method GET `
             -Uri "$($Session.Server)/rest/api/$($Session.Version)/projects/$($project.key)/repos?start=0&limit=10000" `
             -Headers @{
                 "Content-Type"= "application/json"
-                Authorization = "Basic $($Session.AccessToken)" 
+                Authorization = $Session.Authorization 
             }).values)
     }
     return  $repositories;

@@ -1,12 +1,13 @@
 
 Function Enable-BitbucketCloudPipelines{
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [PSCustomObject] $Repository)
+          [Parameter(Mandatory=$true)] $Workspace,
+          [Parameter(Mandatory=$true)] $RepositoryName)
     
     Invoke-RestMethod `
         -Method PUT `
-        -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/pipelines_config" `
-        -Headers @{ Authorization = "Basic $($Session.AccessToken)"} `
+        -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$RepositoryName/pipelines_config" `
+        -Headers @{ Authorization = $Session.Authorization} `
         -ContentType "application/json" `
         -Body '{ "enabled":"true" }' `
     | Out-Null

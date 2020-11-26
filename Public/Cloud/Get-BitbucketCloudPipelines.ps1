@@ -7,5 +7,5 @@ Function Get-BitbucketCloudPipelines{
     return (Invoke-RestMethod `
          -Method GET `
          -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/pipelines/" `
-         -Headers @{ Authorization = "Basic $($Session.AccessToken)"}).Values
+         -Headers @{ Authorization = $Session.Authorization}).Values
  }

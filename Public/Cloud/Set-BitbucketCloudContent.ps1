@@ -15,7 +15,7 @@ Function Set-BitbucketCloudContent{
     $payload = @()
     $payload += "curl --insecure --fail"
     $payload += "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/src"
-    $payload += "-H 'Authorization: Basic $($Session.AccessToken)'"
+    $payload += "-H 'Authorization: Basic $($Session.Authorization)'"
     $payload += "-H 'ContentType: application/x-www-form-urlencoded'"
     $payload += "-F 'branch=$Branch'"
     $payload += "-F 'message=$Message'"

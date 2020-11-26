@@ -8,7 +8,7 @@ Function Start-Pipeline{
     $request = Invoke-RestMethod `
     -Method POST `
     -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/pipelines/" `
-    -Headers @{ Authorization = "Basic $($Session.AccessToken)"} `
+    -Headers @{ Authorization = $Session.Authorization} `
     -ContentType "application/json" `
     -Body "{
       `"target`": {

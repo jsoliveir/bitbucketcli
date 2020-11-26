@@ -5,7 +5,7 @@ Function Get-BitbucketCloudCommits{
           [Parameter(Mandatory=$false)] [String] $Branch = "master")
 
     return Invoke-RestMethod `
-        -Headers @{Authorization = "Basic $($Session.AccessToken)" } `
+        -Headers @{Authorization = $Session.Authorization } `
         -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}/${Repository}/commits/${Branch}"
           
 }

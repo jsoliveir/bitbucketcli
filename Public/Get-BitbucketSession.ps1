@@ -5,7 +5,7 @@ Function Get-BitbucketSession {
     $All = ($All -or ($Server.Length -gt 1 ))
    
     return $global:BITBUCKETCLI_SESSIONS `
-    | Where-Object { $_.Active -eq $true -or $All } `
+    | Where-Object { $_.IsSelected -eq $true -or $All } `
     | Where-Object { $_.Server -like "$Server" }
 }
 

@@ -5,7 +5,7 @@ Function Get-BitbucketCloudBranches{
     return (Invoke-RestMethod `
         -Method GET `
         -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/refs/branches/" `
-        -Headers @{ Authorization = "Basic $($Session.AccessToken)"}).Values `
+        -Headers @{ Authorization = $Session.Authorization}).Values `
     | Select-Object `
         @{n="Name";e={$_.name}},`
         @{n="LastCommit";e={$_.target.date}},`

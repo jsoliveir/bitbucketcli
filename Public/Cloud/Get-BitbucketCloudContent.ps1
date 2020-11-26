@@ -23,7 +23,7 @@ Function Get-BitbucketCloudContent{
         $request = Invoke-RestMethod `
         -ErrorAction Ignore `
         -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/src/${Branch}/${Path}" `
-        -Headers @{Authorization = "Basic $($Session.AccessToken)" } 
+        -Headers @{Authorization = $Session.Authorization } 
     }catch{
         $request = $null
     }
