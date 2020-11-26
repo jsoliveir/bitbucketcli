@@ -55,7 +55,7 @@ Import-Module -Force .\BitbucketCLI\Module.psm1
 #temporary repositories clone path
 $REPO_CLONE_PATH = "temp/repositories";
 
-#OAuth client Id
+#repositories filter
 $REPOSITORY_MATCH_PATTERN ="API/"
 
 #OAuth client Id
