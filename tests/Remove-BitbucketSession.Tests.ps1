@@ -5,12 +5,12 @@ Describe "Remove-BitbucketSession" {
         $global:BITBUCKETCLI_SESSIONS = @()
         $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
             Id     = 1
-            Active = $true
+            IsSelected = $true
             Server = "server"
         })
         $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
             Id     = 2
-            Active = $true
+            IsSelected = $true
             Server = "server2"
         })
     }

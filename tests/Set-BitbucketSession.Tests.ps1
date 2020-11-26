@@ -5,28 +5,28 @@ Describe "Set-BitbucketSession" {
         $global:BITBUCKETCLI_SESSIONS = @()
         $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
             Id = 1
-            Active = $true
+            IsSelected = $true
             Server = "server"
         })
         $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject]@{
             Id = 2
-            Active = $false
+            IsSelected = $false
             Server = "server2"
         })
         $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject]@{
             Id = 3
-            Active = $true
+            IsSelected = $true
             Server = "server3"
         })
     }
     Context "tokens" {
-        It "must_keep_only_one_active_session" {                     
+        It "must_keep_only_one_IsSelected_session" {                     
             Set-BitbucketSession -Id 1
-            $activeSessions = @($global:BITBUCKETCLI_SESSIONS | Where Active -eq $true)  
-            $inactiveSessions = @($global:BITBUCKETCLI_SESSIONS | Where Active -eq $false)  
-            $activeSessions.Count | Should -BeExactly 1
-            $inactiveSessions.Count | Should -BeExactly 2
-            $activeSessions[0].Server | Should -BeExactly "server"
+            $IsSelectedSessions = @($global:BITBUCKETCLI_SESSIONS | Where IsSelected -eq $true)  
+            $inIsSelectedSessions = @($global:BITBUCKETCLI_SESSIONS | Where IsSelected -eq $false)  
+            $IsSelectedSessions.Count | Should -BeExactly 1
+            $inIsSelectedSessions.Count | Should -BeExactly 2
+            $IsSelectedSessions[0].Server | Should -BeExactly "server"
         }
     }
 }

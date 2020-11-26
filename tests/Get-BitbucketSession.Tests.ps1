@@ -4,17 +4,17 @@ Describe "Get-BitbucketSession" {
         Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
         $global:BITBUCKETCLI_SESSIONS = @()
         $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
-            Active = $true
+            IsSelected = $true
             Server = "server"
             Username = "User"
         })
         $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject]@{
-            Active = $false
+            IsSelected = $false
             Server = "server2"
             Username = "User2"
         })
         $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject]@{
-            Active = $true
+            IsSelected = $true
             Server = "server3"
             Username = "User3"
         })
@@ -26,9 +26,9 @@ Describe "Get-BitbucketSession" {
         It "must_list_server_session" {
             @(Get-BitbucketSession -Server "Server2").Count  | Should -BeExactly 1 
             @(Get-BitbucketSession -Server "Server2").Server | Should -BeExactly "server2"
-            @(Get-BitbucketSession -Server "Server2").Active | Should -Be $false
+            @(Get-BitbucketSession -Server "Server2").IsSelected | Should -Be $false
         }
-        It "must_list_active_sessions_only" {
+        It "must_list_IsSelected_sessions_only" {
             @(Get-BitbucketSession).Count  | Should -BeExactly 2
             @(Get-BitbucketSession).Server | Should -Contain "server"
             @(Get-BitbucketSession).Server | Should -Contain "server3"
