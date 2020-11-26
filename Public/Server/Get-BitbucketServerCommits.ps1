@@ -1,4 +1,4 @@
-Function Get-BitbucketServerRepositoryCommits {
+Function Get-BitbucketServerCommits {
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
           [Parameter(Mandatory=$true)] $ProjectKey,
           [Parameter(Mandatory=$true)] $Repository,
