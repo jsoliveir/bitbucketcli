@@ -21,7 +21,7 @@ $SESSION_CLOUD = New-BitbucketSession `
 #create a new session on bitbucket server
 $SESSION_ONPREM = New-BitbucketSession `
     -Password ("password"| ConvertTo-SecureString  -AsPlainText -Force) `
-    -Server https://git.internbank.no `
+    -Server https://bitbucket.server.local `
     -Username "user_name" `
     -Version 1.0 
 
@@ -75,7 +75,7 @@ $SESSION_CLOUD = New-BitbucketSession `
 #create a new session on bitbucket onprem
 $SESSION_ONPREM = New-BitbucketSession `
     -Password ("password"| ConvertTo-SecureString  -AsPlainText -Force) `
-    -Server https://git.internbank.no `
+    -Server https://bitbucket.server.local `
     -Username "domain_user" `
     -Version 1.0 
 
@@ -114,7 +114,7 @@ $REPOSITORIES_ONPREM | Select-Object id, @{n="repository";e={"$($_.project.key)/
 
     # mirror onprem repositories tk the cloud
     $REPO_PATH = "$REPO_CLONE_PATH/$($_.Name)"
-    git clone "https://git.internbank.no/scm/$($_.project.key)/$($_.name)" $REPO_PATH
+    git clone "https://user_name:secret@bitbucket.server.local/scm/$($_.project.key)/$($_.name)" $REPO_PATH
     git -C $REPO_PATH push -f --mirror "https://x-token-auth:$($SESSION_CLOUD.AccessToken)@bitbucket.org/sbanken/$($_.name).git"
     Remove-Item -Recurse $REPO_PATH -Force
 }
