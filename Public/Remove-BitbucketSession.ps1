@@ -5,11 +5,11 @@ Function Remove-BitbucketSession{
 
     if($Server){
         $global:BITBUCKETCLI_SESSIONS.Remove($Server)
-    }elseif($Id){
+    }elseif($Id -and $Id -gt 0){
       @($global:BITBUCKETCLI_SESSIONS.Keys) `
-            | Where-Object {  $global:BITBUCKETCLI_SESSIONS[$_].Id -ne $Id } `
+            | Where-Object {  $global:BITBUCKETCLI_SESSIONS[$_].Id -eq $Id } `
             | ForEach-Object { $global:BITBUCKETCLI_SESSIONS.Remove($_) }
     }else{
-        Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
+        $global:BITBUCKETCLI_SESSIONS=@{}
     }
 }

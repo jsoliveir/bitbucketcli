@@ -1,13 +1,13 @@
 Describe "Remove-BitbucketSession" {
     BeforeAll {
         . "$(Split-Path ${PSScriptRoot})\**\Remove-BitbucketSession.ps1" 
-        
+
         $global:BITBUCKETCLI_SESSIONS = @{}
-        $global:BITBUCKETCLI_SESSIONS["server"] =([PSCustomObject]@{
+        $global:BITBUCKETCLI_SESSIONS["server"]=([PSCustomObject]@{
             Id     = 1
             Server = "server"
         })
-        $global:BITBUCKETCLI_SESSIONS["server2"] =([PSCustomObject]@{
+        $global:BITBUCKETCLI_SESSIONS["server2"]=([PSCustomObject]@{
             Id     = 2
             Server = "server2"
         })
@@ -29,7 +29,7 @@ Describe "Remove-BitbucketSession" {
     Context "Removed All Sessions" {
         It "should_be_deleted_at_all" {                     
             Remove-BitbucketSession 
-            @($global:BITBUCKETCLI_SESSIONS).Count | Should -BeExactly 0
+            @($global:BITBUCKETCLI_SESSIONS.Keys).Count | Should -BeExactly 0
         }
     }
 }
