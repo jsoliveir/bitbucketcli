@@ -13,7 +13,7 @@ Describe "New-BitbucketSession" {
   }
   Context "Created Session w/ username and password" {
     It "should_be_ok" {
-      $session = New-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
+      $session = New-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd")
       $session | Should -Not -BeNullOrEmpty
       $session.Server | Should -Be "test"
       $Session.AccessToken | Should -Not -BeNullOrEmpty
@@ -22,7 +22,7 @@ Describe "New-BitbucketSession" {
   }
   Context "Created Session w/ username and password and OAuth" {
     It "should_be_ok" {
-      $session = New-BitbucketSession -UseOAuth -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
+      $session = New-BitbucketSession -UseOAuth -Server "test" -Version "1" -Username "test" -Password $("pwd")
       $session | Should -Not -BeNullOrEmpty
       $session.Server | Should -Be "test"
       $Session.AccessToken | Should -Be "TokenFromBitbucketCloud"

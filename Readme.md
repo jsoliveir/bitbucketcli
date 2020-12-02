@@ -12,7 +12,7 @@
 
 #create a new session on bitbucket cloud
 $SESSION_CLOUD = New-BitbucketSession `
-    -Password ($BITBUCKET_OAUTH_CLIENT_SECRET | ConvertTo-SecureString -AsPlainText -Force) `
+    -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
     -Username $BITBUCKET_OAUTH_CLIENT_ID `
     -Server https://api.bitbucket.org `
     -Version 2.0 `
@@ -20,14 +20,25 @@ $SESSION_CLOUD = New-BitbucketSession `
 
 #create a new session on bitbucket server
 $SESSION_ONPREM = New-BitbucketSession `
-    -Password ("password"| ConvertTo-SecureString  -AsPlainText -Force) `
     -Server https://bitbucket.server.local `
-    -Username "user_name" `
+    -Password "bitbucket_app_password" `
+    -Username "bitbucket_user_name" `
     -Version 1.0 
 
 ```
+If you want to just use bitbucket cloud you just need the following
+
+```powershell
+New-BitbucketSession `
+    -Password "bitbucket_app_password" `
+    -Username "bitbucket_user" `
+    -UseOAuth
+```
+
+ (by default the CLI uses bitbucket.org)
 
 ### Use the API:
+
 
 ```powershell
 # fetch onprem bitbucket repositories
@@ -40,6 +51,18 @@ Get-BitbucketServerRepositories `
     -Session $SESSION_ONPREM;
 ```
 
+>if you don't specify any session, by default the CLI will use the last session created
+
+```powershell
+
+New-BitbucketSession `
+    -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
+    -UseOAuth "bitbucket_app_password" `
+    -Username "bitbucket_user" 
+
+Get-BitbucketCloudRepositories `
+    -Workspace jsoliveir
+```
 ### Available functions
 
 >_More functions can be found in the [Public/](Public/) directory in this repository_ 
@@ -47,6 +70,7 @@ Get-BitbucketServerRepositories `
 # Mirroring repositories to bitbucket cloud
 
 ## Script example:
+
 
 ```powershell
 
@@ -66,7 +90,7 @@ $BITBUCKET_OAUTH_CLIENT_SECRET ="oauth_bitbucket_client_secret"
 
 #create a new session on bitbucket cloud
 $SESSION_CLOUD = New-BitbucketSession `
-    -Password ($BITBUCKET_OAUTH_CLIENT_SECRET | ConvertTo-SecureString -AsPlainText -Force) `
+    -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
     -Username $BITBUCKET_OAUTH_CLIENT_ID `
     -Server https://api.bitbucket.org `
     -Version 2.0 `
@@ -74,8 +98,8 @@ $SESSION_CLOUD = New-BitbucketSession `
 
 #create a new session on bitbucket onprem
 $SESSION_ONPREM = New-BitbucketSession `
-    -Password ("password"| ConvertTo-SecureString  -AsPlainText -Force) `
     -Server https://bitbucket.server.local `
+    -Password "bitbucket_app_password" `
     -Username "domain_user" `
     -Version 1.0 
 

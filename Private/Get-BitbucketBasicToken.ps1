@@ -1,12 +1,9 @@
 Function Get-BitbucketBasicToken {
     param([Parameter(Mandatory=$true)] [String] $Username,
-          [Parameter(Mandatory=$true)] [SecureString] $Password)
+          [Parameter(Mandatory=$true)] [String] $Password)
          
-    #decrypt secure string
-    $dPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
-        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
 
     return [Convert]::ToBase64String(
-        [Text.Encoding]::ASCII.GetBytes("${Username}:${dPassword}"))
+        [Text.Encoding]::ASCII.GetBytes("${Username}:${Password}"))
 }
 

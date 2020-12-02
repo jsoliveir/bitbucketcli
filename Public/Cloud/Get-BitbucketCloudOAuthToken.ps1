@@ -1,14 +1,10 @@
 Function Get-BitbucketCloudOAuthToken {
     param([Parameter(Mandatory=$true)] [String] $Username,
-          [Parameter(Mandatory=$true)] [SecureString] $Password)
-    
-    #decrypt secure string
-    $dPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
-        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
+          [Parameter(Mandatory=$true)] [String] $Password)
     
     #base 64 encodend credential
     $BITBUCKET_BASIC_CREDENTIAL = [Convert]::ToBase64String(
-        [Text.Encoding]::ASCII.GetBytes( "${Username}:${dPassword}"))
+        [Text.Encoding]::ASCII.GetBytes( "${Username}:${Password}"))
 
     #get bitbucket.org pushing credentials
     $BITBUCKET_OAUTH = (Invoke-RestMethod -Method POST `
