@@ -2,18 +2,18 @@ Describe "Get-BitbucketSession" {
     BeforeAll {
         . "$(Split-Path ${PSScriptRoot})\**\Get-BitbucketSession.ps1"
         Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
-        $global:BITBUCKETCLI_SESSIONS = @()
-        $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
+        $global:BITBUCKETCLI_SESSIONS = @{}
+        $global:BITBUCKETCLI_SESSIONS["server"]=([PSCustomObject]@{
             IsSelected = $true
             Server = "server"
             Username = "User"
         })
-        $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject]@{
+        $global:BITBUCKETCLI_SESSIONS["server2"]=([PSCustomObject]@{
             IsSelected = $false
             Server = "server2"
             Username = "User2"
         })
-        $global:BITBUCKETCLI_SESSIONS += ([PSCustomObject]@{
+        $global:BITBUCKETCLI_SESSIONS["server3"]= ([PSCustomObject]@{
             IsSelected = $true
             Server = "server3"
             Username = "User3"
