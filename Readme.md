@@ -8,6 +8,17 @@
 
 ### Start a session:
 
+If you want to just use bitbucket cloud you just need the following
+
+```powershell
+New-BitbucketSession `
+    -Password "bitbucket_app_password" `
+    -Username "bitbucket_user" `
+    -UseOAuth
+```
+
+ (by default the CLI uses bitbucket.org)
+
 ```powershell
 
 #create a new session on bitbucket cloud
@@ -26,16 +37,6 @@ $SESSION_ONPREM = New-BitbucketSession `
     -Version 1.0 
 
 ```
-If you want to just use bitbucket cloud you just need the following
-
-```powershell
-New-BitbucketSession `
-    -Password "bitbucket_app_password" `
-    -Username "bitbucket_user" `
-    -UseOAuth
-```
-
- (by default the CLI uses bitbucket.org)
 
 ### Use the API:
 
