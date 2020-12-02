@@ -101,7 +101,7 @@ Function Import-BitbucketCLI {
 
 Import-BitbucketCLI `
     -Username $ {BITBUCKET_OAUTH_CLIENT_ID} `
-    -Password $ {BITBUCKET_OAUTH_CLIENT_SECRET} `
+    -Password $ {BITBUCKET_OAUTH_CLIENT_SECRET} 
 
 ```
 
