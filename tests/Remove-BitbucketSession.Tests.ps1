@@ -1,23 +1,35 @@
 Describe "Remove-BitbucketSession" {
     BeforeAll {
         . "$(Split-Path ${PSScriptRoot})\**\Remove-BitbucketSession.ps1" 
-        $global:BITBUCKETCLI_SESSIONS = @()
-        $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
+        
+        $global:BITBUCKETCLI_SESSIONS = @{}
+        $global:BITBUCKETCLI_SESSIONS["server"] =([PSCustomObject]@{
             Id     = 1
-            IsSelected = $true
             Server = "server"
         })
-        $global:BITBUCKETCLI_SESSIONS +=([PSCustomObject]@{
+        $global:BITBUCKETCLI_SESSIONS["server2"] =([PSCustomObject]@{
             Id     = 2
-            IsSelected = $true
             Server = "server2"
         })
     }
-    Context "tokens" {
-        It "must_remove_a_session" {                     
+    Context "Removed Session By Id" {
+        It "should_be_deleted_from_store" {                     
             Remove-BitbucketSession -Id 1
-            @($global:BITBUCKETCLI_SESSIONS).Count | Should -BeExactly 1
-            $global:BITBUCKETCLI_SESSIONS[0].Id | Should -BeExactly 2
+            $global:BITBUCKETCLI_SESSIONS["server2"].Id | Should -BeExactly 2
+            $global:BITBUCKETCLI_SESSIONS.Keys | Should -Not -Contain "server"
+        }
+    }
+    Context "Removed Session By Server" {
+        It "should_be_deleted_from_store" {                     
+            Remove-BitbucketSession -Server "server"
+            $global:BITBUCKETCLI_SESSIONS["server2"].Id | Should -BeExactly 2
+            $global:BITBUCKETCLI_SESSIONS.Keys | Should -Not -Contain "server"
+        }
+    }
+    Context "Removed All Sessions" {
+        It "should_be_deleted_at_all" {                     
+            Remove-BitbucketSession 
+            @($global:BITBUCKETCLI_SESSIONS).Count | Should -BeExactly 0
         }
     }
 }

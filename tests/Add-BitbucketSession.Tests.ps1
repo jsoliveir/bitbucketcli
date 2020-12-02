@@ -41,7 +41,6 @@ Describe "Add-BitbucketSession" {
   }
   Context "Sessions passwords" {
     It "must_be_secured_string" {
-      Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
       Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
       $global:BITBUCKETCLI_SESSIONS["test"].AccessToken | Should -Not -BeNullOrEmpty
     }

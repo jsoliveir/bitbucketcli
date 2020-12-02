@@ -16,7 +16,7 @@ $SESSION_CLOUD = New-BitbucketSession `
     -Username $BITBUCKET_OAUTH_CLIENT_ID `
     -Server https://api.bitbucket.org `
     -Version 2.0 `
-    -OAuth
+    -UseOAuth
 
 #create a new session on bitbucket server
 $SESSION_ONPREM = New-BitbucketSession `

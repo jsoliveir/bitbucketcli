@@ -12,13 +12,15 @@ Function Add-BitbucketSession {
         $global:BITBUCKETCLI_SESSIONS = @{}
     }
 
-    @($global:BITBUCKETCLI_SESSIONS.Values) | ForEach-Object { 
-        try {  $_.IsSelected = $false } catch { }} 
+    @($global:BITBUCKETCLI_SESSIONS.Keys) | ForEach-Object { 
+        try {  $global:BITBUCKETCLI_SESSIONS[$_].IsSelected = $false } catch { }} 
 
     if(!$Token -and !$UseOAuth){
         $ACCESS_TOKEN = (Get-BitbucketBasicToken  -Username $Username -Password  $Password)
+        $AUTH_SCHEMA = "Basic"
     }else{
         $ACCESS_TOKEN = (Get-BitbucketOAuthToken -Token $Token -Username $Username -Password $Password)
+        $AUTH_SCHEMA = "Bearer"
     }
 
     $global:BITBUCKETCLI_SESSIONS[$Server] = ([PSCustomObject] @{
@@ -28,7 +30,7 @@ Function Add-BitbucketSession {
         Version         = $Version
         Username        = $Username
         AccessToken     = $ACCESS_TOKEN
-        Authorization   = "$Schema $ACCESS_TOKEN"
+        Authorization   = "$AUTH_SCHEMA $ACCESS_TOKEN"
     })
 
     return $global:BITBUCKETCLI_SESSIONS[$Server]
