@@ -2,6 +2,10 @@ Describe "Add-BitbucketSession" {
   BeforeAll {
     . "$(Split-Path ${PSScriptRoot})\**\Get-BitbucketBasicToken.ps1"
     . "$(Split-Path ${PSScriptRoot})\**\Add-BitbucketSession.ps1"
+
+    Function Get-BitbucketOAuthToken(){
+        return "OAuthToken"
+    }
   }
   Context "environment_variables" {
     It "must_be_set" {
@@ -26,7 +30,7 @@ Describe "Add-BitbucketSession" {
       $global:BITBUCKETCLI_SESSIONS[1].Id | Should -BeExactly 2 
     }
   }
-  Context "sessions" {
+  Context "Added Sessions" {
     It "must_be_only_one_IsSelected" {
       Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
       Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
@@ -35,20 +39,39 @@ Describe "Add-BitbucketSession" {
       @($global:BITBUCKETCLI_SESSIONS | Where-Object IsSelected -eq $true).Count | Should -BeExactly 1 
     }
   }
-  Context "passwords" {
+  Context "Sessions passwords" {
     It "must_be_secured_string" {
       Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
       Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
       $global:BITBUCKETCLI_SESSIONS[0].AccessToken | Should -Not -BeNullOrEmpty
     }
   }
-  Context "Add-BitbucketSession" {
-    It "should_return_the_session_created" {
+  Context "Session Created" {
+    It "should_return_the_session" {
       Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
       $session = Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
       $session | Should -Not -BeNullOrEmpty
       $session.Server | Should -Be "test"
       $Session.Authorization | Should -Not -BeNullOrEmpty
+    }
+  }
+  Context "Session w/ username and password" {
+    It "should_be_ok" {
+      Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
+      $session = Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
+      $session | Should -Not -BeNullOrEmpty
+      $session.Server | Should -Be "test"
+      $Session.Authorization | Should -Not -BeNullOrEmpty
+    }
+  }
+  Context "Session w/ username and password and OAuth" {
+    It "should_be_invoke_request_oauth_token" {
+      Remove-Variable -Scope Global BITBUCKETCLI_SESSIONS -ErrorAction Ignore
+      $session = Add-BitbucketSession -UseOAuth -Server "test" -Version "1" -Username "test" -Password $("pwd"|ConvertTo-SecureString -AsPlainText -Force)
+      $session | Should -Not -BeNullOrEmpty
+      $session.Server | Should -Be "test"
+      $Session.Authorization | Should -Not -BeNullOrEmpty
+      $Session.AccessToken | Should -Be "OAuthToken"
     }
   }
 }

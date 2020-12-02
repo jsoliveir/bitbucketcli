@@ -1,4 +1,3 @@
-
 Describe "Remove-BitbucketSession" {
     BeforeAll {
         . "$(Split-Path ${PSScriptRoot})\**\Remove-BitbucketSession.ps1" 
