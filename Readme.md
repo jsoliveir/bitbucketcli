@@ -68,26 +68,33 @@ Get-BitbucketCloudRepositories `
 
 >_More functions can be found in the [Public/](Public/) directory in this repository_ 
 
-# Import BitbucketCLI directly from a cloud repository
+## Import BitbucketCLI directly from a cloud repository
 
-## Bitbucket Cloud
+### Bitbucket Cloud
 
 ```powershell
 Function Import-BitbucketCLI {
     param([Parameter(Mandatory=$true)] [String] $Username,
           [Parameter(Mandatory=$true)] [String] $Password)
-    # remote the directory if exists
-    Remove-Item -Force -Recurse BitbucketCLI/ -ErrorAction SilentlyContinue
+
+    # remove the directory if exists
+    Remove-Item -Force `
+        -Recurse BitbucketCLI/ `
+        -ErrorAction SilentlyContinue
+
     # base 64 encoded credential
     $BITBUCKET_BASIC_CREDENTIAL = [Convert]::ToBase64String(
         [Text.Encoding]::ASCII.GetBytes( "${Username}:${Password}"))
+        
     # get bitbucket.org pushing credentials
     $BITBUCKET_OAUTH = (Invoke-RestMethod -Method POST `
         "https://bitbucket.org/site/oauth2/access_token" `
         -Body grant_type=client_credentials `
         -Headers @{  Authorization = "Basic ${BITBUCKET_BASIC_CREDENTIAL}" })
+
     # clone BitbucketCLI repository
     git clone "https://x-token-auth:$($BITBUCKET_OAUTH.access_token)@bitbucket.org/sbanken/BitbucketCLI" BitbucketCLI
+
     # import module
     Import-Module -Force ./BitbucketCLI/Module.psm1
 }
