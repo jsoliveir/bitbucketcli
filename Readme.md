@@ -51,7 +51,7 @@ Get-BitbucketServerRepositories `
     -Session $SESSION_ONPREM;
 ```
 
->if you don't specify any session, by default the CLI will use the last session created
+**if you don't specify any session, by default the CLI will use the last session created**
 
 ```powershell
 
