@@ -1,9 +1,9 @@
 Describe "Add-BitbucketSession" {
   BeforeAll {
     . "$(Split-Path ${PSScriptRoot})\**\Get-BitbucketBasicToken.ps1"
+    . "$(Split-Path ${PSScriptRoot})\**\Get-BitbucketOAuthToken.ps1"
     . "$(Split-Path ${PSScriptRoot})\**\Add-BitbucketSession.ps1"
-    
-    Function Get-BitbucketOAuthToken(){
+    Function Get-BitbucketCloudOAuthToken(){
         return "OAuthToken"
     }
   }
@@ -66,8 +66,8 @@ Describe "Add-BitbucketSession" {
       $session = Add-BitbucketSession -UseOAuth -Server "test" -Version "1" -Username "test" -Password $("pwd")
       $session | Should -Not -BeNullOrEmpty
       $session.Server | Should -Be "test"
-      $Session.Authorization | Should -Not -BeNullOrEmpty
-      $Session.AccessToken | Should -Be "OAuthToken"
+      $Session.AccessToken | Should -BeLike "OAuthToken"
+      $Session.Authorization | Should -BeLike "Bearer OAuthToken"
     }
   }
 }

@@ -8,7 +8,13 @@ Describe "Get-BitbucketSession" {
     Context "Bitbucket Cloud OAuth Tokens" {
         It "must_be_fetched" {
             $token = Get-BitbucketOAuthToken -Username "username" -Password ("password")
-            
+            $token | Should -Be "TokenFromBitbucketCloud"
+        }
+    }
+
+    Context "Bitbucket Cloud OAuth Tokens using empty Token" {
+        It "must_be_fetched" {
+            $token = Get-BitbucketOAuthToken -Token "" -Username "username" -Password ("password")
             $token | Should -Be "TokenFromBitbucketCloud"
         }
     }
