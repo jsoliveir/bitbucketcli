@@ -6,7 +6,7 @@ Function Get-BitbucketCloudPullRequests {
           [Parameter(Mandatory=$false)] $Query,
           [Parameter(Mandatory=$false)] $PageLen=50,
           [Parameter(Mandatory=$false)] $Branch="master",
-          [Parameter(Mandatory=$false)] [Switcy]$All
+          [Parameter(Mandatory=$false)] [Switch]$All
           )
 
     return (Invoke-RestMethod `
