@@ -1,13 +1,14 @@
 
-Function Start-Pipeline{
+Function Start-BitbucketCloudPipeline{
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [PSCustomObject] $Repository,
+          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$true)] [String] $Branch,
           [Parameter(Mandatory=$true)] [String] $Pipeline)
 
     $request = Invoke-RestMethod `
     -Method POST `
-    -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/pipelines/" `
+    -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/pipelines/" `
     -Headers @{ Authorization = $Session.Authorization} `
     -ContentType "application/json" `
     -Body "{

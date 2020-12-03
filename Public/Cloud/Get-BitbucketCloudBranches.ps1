@@ -1,13 +1,13 @@
 Function Get-BitbucketCloudBranches{
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [PSCustomObject] $Repository)
+          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$true)] [String] $Repository,
+          [Parameter(Mandatory=$false)] $Query,
+          [Parameter(Mandatory=$false)] $Page=1,
+          [Parameter(Mandatory=$false)] $PageLen=50)
     
     return (Invoke-RestMethod `
         -Method GET `
-        -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/refs/branches/" `
-        -Headers @{ Authorization = $Session.Authorization}).Values `
-    | Select-Object `
-        @{n="Name";e={$_.name}},`
-        @{n="LastCommit";e={$_.target.date}},`
-        @{n="Hash";e={$_.target.hash}}
+        -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/refs/branches/?q=${Query}&page=$Page&pagelen=$PageLen" `
+        -Headers @{ Authorization = $Session.Authorization}).Values
 }

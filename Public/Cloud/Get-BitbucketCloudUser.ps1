@@ -1,7 +1,8 @@
 
 Function Get-BitbucketCloudUser {
-    param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession))
+    param([Parameter(Mandatory=$false)] [PSCustomObject] $Session = (Get-BitbucketSession))
+    
     return Invoke-RestMethod `
-    -Headers @{Authorization = $Session.Authorization } `
-    -Uri "$($Session.Server)/$($Session.Version)/user"
+        -Headers @{Authorization = $Session.Authorization } `
+        -Uri "$($Session.Server)/$($Session.Version)/user"
 }

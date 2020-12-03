@@ -1,10 +1,11 @@
 Function Set-BitbucketCloudContent{
-    param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [PSCustomObject] $Repository,
-          [Parameter(Mandatory=$false)] [String[]] $FilesToDelete,
-          [Parameter(Mandatory=$false)] [String[]] $FilesToAdd,
-          [String] $Message,
-          [String] $Branch)
+    param([Parameter(Mandatory=$false)] [PSCustomObject] $Session = (Get-BitbucketSession),
+          [Parameter(Mandatory=$true)]  [String]    $Workspace,
+          [Parameter(Mandatory=$true)]  [String]    $Repository,
+          [Parameter(Mandatory=$false)] [String[]]  $FilesToDelete,
+          [Parameter(Mandatory=$false)] [String[]]  $FilesToAdd,
+          [Parameter(Mandatory=$false)] [String]    $Message,
+          [Parameter(Mandatory=$false)] [String]    $Branch)
           
     $Branch = $Branch -replace "refs/heads/",""
     if($Branch -like $null){
@@ -14,7 +15,7 @@ Function Set-BitbucketCloudContent{
     
     $payload = @()
     $payload += "curl --insecure --fail"
-    $payload += "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/src"
+    $payload += "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/src"
     $payload += "-H 'Authorization: Basic $($Session.Authorization)'"
     $payload += "-H 'ContentType: application/x-www-form-urlencoded'"
     $payload += "-F 'branch=$Branch'"

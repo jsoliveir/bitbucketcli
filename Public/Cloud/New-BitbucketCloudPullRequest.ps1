@@ -1,11 +1,11 @@
 Function New-BitbucketCloudPullRequest {
-    param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] $Workspace,
-          [Parameter(Mandatory=$true)] $Repository,
-          [Parameter(Mandatory=$true)] $SourceBranch,
-          [Parameter(Mandatory=$true)] $TargetBranch,
-          [Parameter(Mandatory=$true)] $Description,
-          [Parameter(Mandatory=$true)] $Title)
+    param([Parameter(Mandatory=$false)] [PSCustomObject] $Session = (Get-BitbucketSession),
+          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$true)] [String] $Repository,
+          [Parameter(Mandatory=$true)] [String] $SourceBranch,
+          [Parameter(Mandatory=$true)] [String] $TargetBranch,
+          [Parameter(Mandatory=$true)] [String] $Description,
+          [Parameter(Mandatory=$true)] [String] $Title)
   
         $payload = [PSCustomObject]@{
             "title"=$Title
@@ -30,5 +30,5 @@ Function New-BitbucketCloudPullRequest {
         -Headers @{
             "Content-Type"= "application/json"
             Authorization = $Session.Authorization 
-        }).values
+        })
 }
