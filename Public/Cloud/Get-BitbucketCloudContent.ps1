@@ -2,7 +2,8 @@
 Function Get-BitbucketCloudContent{
     param(
           [Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [PSCustomObject] $Repository,
+          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$true)] [String] $Path,
           [Parameter(Mandatory=$true)] [String] $Branch
     )
@@ -10,7 +11,7 @@ Function Get-BitbucketCloudContent{
     $Branch = $Branch -replace "refs/heads/",""
 
     if($Branch -like $null){
-        $Branch = (Get-RepositoryBranches -Repository $Repository `
+        $Branch = (Get-BitbucketCloudBranches -Worspace $Workspace -Repository $Repository `
         | Sort-Object LastCommit -Descending `
         | Select-Object -First 1).Name
     }
@@ -22,18 +23,14 @@ Function Get-BitbucketCloudContent{
     try{
         $request = Invoke-RestMethod `
         -ErrorAction Ignore `
-        -Uri "$($Session.Server)/$($Session.Version)/repositories/$($Repository.Workspace)/$($Repository.Name)/src/${Branch}/${Path}" `
+        -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}/${Repository}/src/${Branch}/${Path}" `
         -Headers @{Authorization = $Session.Authorization } 
     }catch{
         $request = $null
     }
 
     if($request.Values){
-        return $request.Values | Select-Object `
-        @{n="Path";e={"/${Path}/$(Split-Path -Leaf $_.path)"}}, `
-        @{n="Type";e={$_.type -replace "commit_",""}}, `
-        @{n="Brach";e={$Branch}}, `
-        @{n="Commit";e={$_.commit.hash}}
+        return $request.Values
     }else{
         return $request
     }
