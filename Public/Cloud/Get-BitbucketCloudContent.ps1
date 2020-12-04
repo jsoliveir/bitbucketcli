@@ -20,14 +20,9 @@ Function Get-BitbucketCloudContent{
     $Path = $Path -replace "^/",""
     $Path = $Path -replace "^\.\/",""
 
-    try{
-        $request = Invoke-RestMethod `
-        -ErrorAction Ignore `
+    $request = Invoke-RestMethod `
         -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}/${Repository}/src/${Branch}/${Path}" `
         -Headers @{Authorization = $Session.Authorization } 
-    }catch{
-        $request = $null
-    }
 
     if($request.Values){
         return $request.Values
