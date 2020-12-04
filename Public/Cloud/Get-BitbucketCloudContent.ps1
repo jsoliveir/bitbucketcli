@@ -5,7 +5,11 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$true)] [String] $Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$true)] [String] $Path,
-          [Parameter(Mandatory=$true)] [String] $Branch
+          [Parameter(Mandatory=$true)] [String] $Branch,
+          [Parameter(Mandatory=$false)] $Query,
+          [Parameter(Mandatory=$false)] $Page,
+          [Parameter(Mandatory=$false)] $PageLen,
+          [Parameter(Mandatory=$false)] $Limit=1000
     )
 
     $Branch = $Branch -replace "refs/heads/",""
@@ -21,7 +25,7 @@ Function Get-BitbucketCloudContent{
     $Path = $Path -replace "^\.\/",""
 
     $request = Invoke-RestMethod `
-        -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}/${Repository}/src/${Branch}/${Path}" `
+        -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}/${Repository}/src/${Branch}/${Path}?q=${Query}&page=${Page}&pagelen=${PageLen}&limit=${Limit}" `
         -Headers @{Authorization = $Session.Authorization } 
 
     if($request.Values){
