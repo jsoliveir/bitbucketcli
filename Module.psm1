@@ -8,7 +8,9 @@ $Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction Silen
 
 Write-Host -ForegroundColor cyan "Importing Bitbucket Cloud CLI ..."
 $Public | Sort-Object -Property Basename | Foreach-Object{
-    Write-Host -ForegroundColor Magenta "* $($_.Basename)"
+    if($VerbosePreference){
+        Write-Host -ForegroundColor Magenta "* $($_.Basename)"
+    }
     . $_.FullName
 }
 $Private | Sort-Object -Property Basename | Foreach-Object{
