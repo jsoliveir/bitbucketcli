@@ -3,8 +3,8 @@
     https://developer.atlassian.com/bitbucket/api/2/reference/resource/
 #>
 
-$Public  = @( Get-ChildItem -Path $PSScriptRoot\Public\ -Filter *.ps1 -Recurse -ErrorAction SilentlyContinue )
-$Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue )
+$Public  = @( Get-ChildItem -Path $PSScriptRoot\Public\ -Filter *.ps1 -Recurse -ErrorAction SilentlyContinue -Verbose:$false )
+$Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue -Verbose:$false )
 
 if($VerbosePreference){
     Write-Host -ForegroundColor cyan "Importing Bitbucket Cloud CLI ..."
@@ -19,6 +19,6 @@ $Private | Sort-Object -Property Basename | Foreach-Object{
     . $_.FullName
 }
 
-Remove-Item Alias:curl -ErrorAction Ignore
+Remove-Item Alias:curl -ErrorAction Ignore -Verbose:$false
 
-Export-ModuleMember -Function $Public.Basename
+Export-ModuleMember -Function $Public.Basename -Verbose:$false
