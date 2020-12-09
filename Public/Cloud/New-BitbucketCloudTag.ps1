@@ -4,7 +4,7 @@ Function New-BitbucketCloudTag {
           [Parameter(Mandatory=$true)] [String] $Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$true)] [String] $TagName,
-          [Parameter(Mandatory=$true)] [String] $CommitHash)
+          [Parameter(Mandatory=$false)] [String] $CommitHash)
     return Invoke-RestMethod `
     -Method POST `
     -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/refs/tags" `
