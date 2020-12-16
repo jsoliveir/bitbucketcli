@@ -1,4 +1,4 @@
-Function Set-BitbucketCloudContent{
+Function New-BitbucketCloudCommit{
     param([Parameter(Mandatory=$false)] [PSCustomObject] $Session = (Get-BitbucketSession),
           [Parameter(Mandatory=$true)]  [String]    $Workspace,
           [Parameter(Mandatory=$true)]  [String]    $Repository,
