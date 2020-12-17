@@ -16,7 +16,7 @@ Function New-BitbucketCloudCommit{
     $payload = @()
     $payload += "curl --insecure --fail"
     $payload += "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/src"
-    $payload += "-H 'Authorization: Basic $($Session.Authorization)'"
+    $payload += "-H 'Authorization: $($Session.Authorization)'"
     $payload += "-H 'ContentType: application/x-www-form-urlencoded'"
     $payload += "-F 'branch=$Branch'"
     $payload += "-F 'message=$Message'"

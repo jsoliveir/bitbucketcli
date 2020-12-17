@@ -2,7 +2,7 @@
 Function New-BitbucketCloudRepository {
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
           [Parameter(Mandatory=$true)] [String] $Workspace,
-          [Parameter(Mandatory=$true)] [String] $Name,
+          [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$false)] [String] $ProjectKey,
           [Parameter(Mandatory=$false)] [String] $MainBranch="master")
     return Invoke-RestMethod `
