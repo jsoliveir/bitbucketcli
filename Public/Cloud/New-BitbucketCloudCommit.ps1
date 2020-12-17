@@ -5,6 +5,7 @@ Function New-BitbucketCloudCommit{
           [Parameter(Mandatory=$false)] [String[]]  $FilesToDelete, 
           [Parameter(Mandatory=$false)] [String[]]  $FilesToAdd,
           [Parameter(Mandatory=$false)] [String]    $Message,
+          [Parameter(Mandatory=$false)] [String]    $Author,
           [Parameter(Mandatory=$false)] [String]    $Branch)
           
     return  (Invoke-RestMethod `
@@ -17,5 +18,6 @@ Function New-BitbucketCloudCommit{
          -Body @{
             message = $Message
             branch = $Branch
+            author = $Author
          })
 }
