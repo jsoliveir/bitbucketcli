@@ -2,7 +2,8 @@ Function Get-BitbucketServerRepositories {
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession))
 
     $repositories = @();
-    $projects = Get-BitbucketServerProjects
+    $projects = Get-BitbucketServerProjects `
+        -Session $Session
 
     foreach ( $project in $projects ) {
         $repositories += @((Invoke-RestMethod `

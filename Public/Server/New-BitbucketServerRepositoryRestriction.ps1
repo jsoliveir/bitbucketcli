@@ -4,7 +4,8 @@ Function New-BitbucketServerRepositoryRestriction {
         [Parameter(Mandatory=$true)] [String] $Project,
         [Parameter(Mandatory=$true)] [String] $Repository,
         [Parameter(Mandatory=$true)] [String] $BranchPattern,
-        [Parameter(Mandatory=$true)] [String] [ValidateSet('read-only')] $Restriction
+        [Parameter(Mandatory=$true)] [String] [ValidateSet('read-only')] $Restriction,
+        [Parameter(Mandatory=$false)] [String] $Label
     )
     
     return (Invoke-RestMethod `
@@ -19,6 +20,7 @@ Function New-BitbucketServerRepositoryRestriction {
             `"type`":  `"$Restriction`",
             `"matcher`": {
                 `"id`":  `"$BranchPattern`",
+                `"displayId`":`"$Label`",
                 `"type`": {
                     `"id`": `"PATTERN`",
                     `"name`": `"Pattern`"
