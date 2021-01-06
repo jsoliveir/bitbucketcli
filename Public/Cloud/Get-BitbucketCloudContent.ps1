@@ -5,7 +5,7 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$true)] [String] $Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$true)] [String] $Path,
-          [Parameter(Mandatory=$true)] [String] $Branch,
+          [Parameter(Mandatory=$false)] [String] $Branch="master",
           [Parameter(Mandatory=$false)] [String] $Query,
           [Parameter(Mandatory=$false)] [Int] $PageLen=100
     )
