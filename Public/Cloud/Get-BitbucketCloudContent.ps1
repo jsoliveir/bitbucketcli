@@ -17,7 +17,10 @@ Function Get-BitbucketCloudContent{
 
     $request = Invoke-RestMethod `
         -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}/${Repository}/src/${Branch}/${Path}?q=${Query}&pagelen=${PageLen}" `
-        -Headers @{Authorization = $Session.Authorization } 
+        -ContentType "application/json;charset=utf-8" `
+        -Headers @{
+            Authorization = $Session.Authorization
+        }
 
     if($request.values){
         return $request.values
