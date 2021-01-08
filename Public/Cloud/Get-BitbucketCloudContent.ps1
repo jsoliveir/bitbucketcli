@@ -23,7 +23,7 @@ Function Get-BitbucketCloudContent{
             Authorization = $Session.Authorization
         })
         
-    $json = ($request.Content | ConvertTo-Json -ErrorAction Ignore);
+    $json = ($request.Content | ConvertFrom-Json -ErrorAction Ignore);
     if($json.values.path){
         return $json
     }else{
