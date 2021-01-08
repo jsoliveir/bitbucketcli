@@ -25,7 +25,7 @@ Function Get-BitbucketCloudContent{
         
     $json = ($request.Content | ConvertFrom-Json -ErrorAction Ignore);
     if($json.values.path){
-        return $json
+        return $json.values
     }else{
         return $request.Content
     }
