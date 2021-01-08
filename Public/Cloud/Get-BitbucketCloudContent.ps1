@@ -25,12 +25,15 @@ Function Get-BitbucketCloudContent{
     
         try{
             $json = ($request.Content | ConvertFrom-Json -ErrorAction SilentlyContinue);
-        }finally{
-            if($json.values.path){
-                $return = $json.values
-            }else{
-                $return = $request.Content
-            }        
+        }catch{
+            if($VerbosePreference){
+                Write-Host -ForegroundColor DarkGray $_
+            }
         }
-        return $return;
+        
+        if($json.values.path){
+            return $json.values
+        }else{
+            return $request.Content
+        }        
 }
