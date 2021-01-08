@@ -22,11 +22,15 @@ Function Get-BitbucketCloudContent{
         -Headers @{
             Authorization = $Session.Authorization
         })
-        
-    $json = ($request.Content | ConvertFrom-Json -ErrorAction SilentlyContinue);
-    if($json.values.path){
-        return $json.values
-    }else{
-        return $request.Content
-    }
+    
+        try{
+            $json = ($request.Content | ConvertFrom-Json -ErrorAction SilentlyContinue);
+        }finally{
+            if($json.values.path){
+                $return = $json.values
+            }else{
+                $return = $request.Content
+            }        
+        }
+        return $return;
 }
