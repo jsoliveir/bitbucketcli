@@ -15,16 +15,18 @@ Function Get-BitbucketCloudContent{
     $Path = $Path -replace "^/",""
     $Path = $Path -replace "^\.\/",""
 
-    $request = Invoke-RestMethod `
+    $request = (Invoke-WebRequest `
         -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}/${Repository}/src/${Branch}/${Path}?q=${Query}&pagelen=${PageLen}" `
         -ContentType "application/json;charset=utf-8" `
+        -UseBasicParsing `
         -Headers @{
             Authorization = $Session.Authorization
-        }
+        })
+        
 
-    if($request.values){
+    if(($request.Content | ConvertTo-Json -ErrorAction Ignore).values.path){
         return $request.values
     }else{
-        return $request
+        return $request.Content
     }
 }
