@@ -10,7 +10,7 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$false)] [Int] $PageLen=100
     )
 
-    $Branch = $Branch -replace "refs/heads/",""
+    $Branch = [Uri]::EscapeDataString($Branch -replace "refs/heads/","")
     $Path = $Path -replace "\\","/"
     $Path = $Path -replace "^/",""
     $Path = $Path -replace "^\.\/",""

@@ -6,7 +6,7 @@ Function New-BitbucketCloudCommit{
           [Parameter(Mandatory=$false)] [String]    $Content,
           [Parameter(Mandatory=$false)] [String]    $Message,
           [Parameter(Mandatory=$false)] [String]    $Author,
-          [Parameter(Mandatory=$false)] [String]    $Branch)
+          [Parameter(Mandatory=$false)] [String]    $Branch="master")
           
     return  (Invoke-RestMethod `
          -Method POST `
