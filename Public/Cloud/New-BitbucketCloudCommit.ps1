@@ -8,17 +8,22 @@ Function New-BitbucketCloudCommit{
           [Parameter(Mandatory=$false)] [String]    $Author,
           [Parameter(Mandatory=$false)] [String]    $Branch="master")
           
-    return  (Invoke-RestMethod `
+      $body = @{
+         message = $Message
+         branch = $Branch
+         author = $Author
+      };
+
+      if($Path -and $Content){
+         $body.Add($Path,$Content)
+      }
+
+      return  (Invoke-RestMethod `
          -Method POST `
          -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/src/" `
          -Headers @{ 
              Authorization = $Session.Authorization
              ContentType ='application/x-www-form-urlencode'
             } `
-         -Body @{
-            message = $Message
-            branch = $Branch
-            author = $Author
-            $Path  = $Content
-         })
+         -Body $body)
 }
