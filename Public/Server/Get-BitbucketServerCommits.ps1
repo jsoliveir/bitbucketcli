@@ -5,6 +5,7 @@ Function Get-BitbucketServerCommits {
           [Parameter(Mandatory=$false)] $Branch,
           [Parameter(Mandatory=$false)] $Limit = 10 )
 
+    $Branch = [System.Web.HttpUtility]::UrlEncode($Branch)
     return (Invoke-RestMethod `
         -Method GET `
         -Uri "$($Session.Server)/rest/api/$($Session.Version)/projects/$ProjectKey/repos/$Repository/commits?until=$Branch&limit=$Limit" `
