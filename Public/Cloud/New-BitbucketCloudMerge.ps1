@@ -4,7 +4,7 @@ Function New-BitbucketCloudMerge {
           [Parameter(Mandatory=$true)]  [String] $Repository,
           [Parameter(Mandatory=$true)]  [String]$PullRequestId,
           [Parameter(Mandatory=$false)] [Switch] $CloseBranch=$true,
-          [Parameter(Mandatory=$false)] [String] $MergeStrategy='merge_commit',
+          [Parameter(Mandatory=$false)] [String] [ValidateSet('squash','merge-commit','fast_forward')] $MergeStrategy='merge_commit',
           [Parameter(Mandatory=$false)] [String] $Message='Automatically merging pull request')
       
     $payload = [PSCustomObject]@{
