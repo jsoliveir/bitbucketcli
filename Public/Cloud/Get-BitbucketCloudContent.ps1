@@ -4,7 +4,7 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
           [Parameter(Mandatory=$true)] [String] $Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
-          [Parameter(Mandatory=$true)] [String] $Path,
+          [Parameter(Mandatory=$false)] [String] $Path = "/",
           [Parameter(Mandatory=$false)] [String] $Commit="master",
           [Parameter(Mandatory=$false)] [String] $Query,
           [Parameter(Mandatory=$false)] [Int] $PageLen=100
