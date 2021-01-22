@@ -1,0 +1,16 @@
+Function Remove-BitbucketCloudRepositoryVariable {
+    param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
+          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$true)] [String] $Repository,
+          [Parameter(Mandatory=$false)] [String] $Id
+          )
+   
+    return Invoke-RestMethod `
+    -Method Delete `
+    -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/pipelines_config/variables/$Id" `
+    -Headers @{
+        "Content-Type"= "application/json"
+        Authorization = $Session.Authorization 
+    }
+}
+
