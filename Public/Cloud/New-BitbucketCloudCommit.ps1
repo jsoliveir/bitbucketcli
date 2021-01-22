@@ -6,17 +6,19 @@ Function New-BitbucketCloudCommit{
           [Parameter(Mandatory=$false)] [String]    $Content,
           [Parameter(Mandatory=$false)] [String]    $Message,
           [Parameter(Mandatory=$false)] [String]    $Author,
-          [Parameter(Mandatory=$false)] [String]    $Branch="master")
+          [Parameter(Mandatory=$false)] [String]    $Branch="master",
+          [Parameter(Mandatory=$false)] [Switch]    $Delete
+          )
           
       $body = @{
          message = $Message
          branch = $Branch
          author = $Author
       };
+      
+      if($Delete) { $Content = $null}
 
-      if($Path -and $Content){
-         $body.Add($Path,$Content)
-      }
+      if($Path){ $body.Add($Path,$Content) }
 
       return  (Invoke-RestMethod `
          -Method POST `
