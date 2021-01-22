@@ -10,7 +10,7 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$false)] [Int] $PageLen=100
     )
 
-    $Commit = [Uri]::EscapeDataString($Commit -replace "refs/heads/","")
+    $Commit = [Uri]::EscapeDataString(($Commit -replace "refs/heads/",""))
     $Path = $Path -replace "\\","/"
     $Path = $Path -replace "^/",""
     $Path = $Path -replace "^\.\/",""
