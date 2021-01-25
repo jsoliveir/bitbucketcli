@@ -4,11 +4,11 @@ Function Get-BitbucketCloudEnvironments {
           [Parameter(Mandatory=$true)] [String] $Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository)
 
-    return Invoke-RestMethod `
+    return (Invoke-RestMethod `
     -Method GET `
     -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/environments/" `
     -Headers @{
         "Content-Type"= "application/json"
         Authorization = $Session.Authorization 
-    }
+    }).values
 }
