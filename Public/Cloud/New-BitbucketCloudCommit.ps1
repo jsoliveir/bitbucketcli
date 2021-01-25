@@ -11,14 +11,14 @@ Function New-BitbucketCloudCommit{
           )
           
       $body = @{
-         message =[Uri]::EscapeDataString($Message)
+         message =$Message
          branch = [Uri]::EscapeDataString($Branch)
          author = $Author
       };
       
       if($Delete) { $Content = $null}
 
-      if($Path){ $body.Add($Path, [Uri]::EscapeDataString($Content)) }
+      if($Path){ $body.Add($Path, $Content) }
 
       return  (Invoke-RestMethod `
          -Method POST `
