@@ -5,12 +5,20 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$true)] [String] $Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$false)] [String] $Path = "/",
-          [Parameter(Mandatory=$false)] [String] $Commit="master",
+          [Parameter(Mandatory=$false)] [String] $Ref="master",
+          [Parameter(Mandatory=$false)] [String] $Commit=$Ref,
           [Parameter(Mandatory=$false)] [String] $Query,
           [Parameter(Mandatory=$false)] [Int] $PageLen=100
     )
 
-    $Commit = [Uri]::EscapeDataString(($Commit -replace "refs/heads/",""))
+    $branch = Get-BitbucketCloudBranches `
+        -Session $Session `
+        -Workspace $Workspace `
+        -Repository $Repository `
+    | Where-Object name -match "($Ref|$Commit)" `
+    | Select-Object -First 1
+
+    if($branch) { $Commit = $branch.target.hash }
     $Path = $Path -replace "\\","/"
     $Path = $Path -replace "^/",""
     $Path = $Path -replace "^\.\/",""
