@@ -18,7 +18,7 @@ Function New-BitbucketCloudCommit{
      
      if($Delete) { $Content = $null}
 
-     if($Path){ $body.Add($Path, $Content) }
+     if($Path){ ([void] $body.Add($Path, $Content)) }
 
      return  (Invoke-RestMethod `
         -Method POST `
