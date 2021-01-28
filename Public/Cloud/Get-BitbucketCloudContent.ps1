@@ -15,7 +15,7 @@ Function Get-BitbucketCloudContent{
         -Session $Session `
         -Workspace $Workspace `
         -Repository $Repository `
-    | Where-Object name -match "($Ref|$Commit)" `
+    | Where-Object name -match "$Ref" -or  name -match "$Commit" `
     | Select-Object -First 1
 
     if($branch) { $Commit = $branch.target.hash }
