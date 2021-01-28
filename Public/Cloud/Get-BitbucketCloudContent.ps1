@@ -6,7 +6,6 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$false)] [String] $Path = "/",
           [Parameter(Mandatory=$false)] [String] $Commit="master",
-          [Parameter(Mandatory=$false)] [String] $Query,
           [Parameter(Mandatory=$false)] [Int] $PageLen=100
     )
 
@@ -14,7 +13,7 @@ Function Get-BitbucketCloudContent{
         -Session $Session `
         -Workspace $Workspace `
         -Repository $Repository `
-    | Where-Object name -match "$Commit"  `
+    | Where-Object name -imatch "$Commit" `
     | Select-Object -First 1
 
     if($branch) { $Commit = $branch.target.hash }
