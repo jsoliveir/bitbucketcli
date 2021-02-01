@@ -13,6 +13,7 @@ Function Get-BitbucketCloudContent{
         -Session $Session `
         -Workspace $Workspace `
         -Repository $Repository `
+        -ErrorAction SilentlyContinue `
     | Where-Object name -imatch "$Commit" `
     | Select-Object -First 1
 
