@@ -3,7 +3,7 @@
 ### Import the module:
 
 ```powershell
-  Import-Module .\BitbucketCLI\Module.psm1 -Force
+  Import-Module .\BitbucketCLI\*.psm1 -Force
 ```
 
 ### Start a session:
@@ -113,7 +113,9 @@ Import-BitbucketCLI `
 
 ```powershell
 
-Import-Module -Force .\BitbucketCLI\Module.psm1
+Import-Module -Force .\BitbucketCLI\*.psm1
+
+$WORKSPACE = "jsoliveir";
 
 #temporary repositories clone path
 $REPO_CLONE_PATH = "temp/repositories";
@@ -178,7 +180,7 @@ $REPOSITORIES_ONPREM | Select-Object id, @{n="repository";e={"$($_.project.key)/
     # mirror onprem repositories tk the cloud
     $REPO_PATH = "$REPO_CLONE_PATH/$($_.Name)"
     git clone "https://user_name:secret@bitbucket.server.local/scm/$($_.project.key)/$($_.name)" $REPO_PATH
-    git -C $REPO_PATH push -f --mirror "https://x-token-auth:$($SESSION_CLOUD.AccessToken)@bitbucket.org/sbanken/$($_.name).git"
+    git -C $REPO_PATH push -f --mirror "https://x-token-auth:$($SESSION_CLOUD.AccessToken)@bitbucket.org/${WORKSPACE}/$($_.name).git"
     Remove-Item -Recurse $REPO_PATH -Force
 }
 
