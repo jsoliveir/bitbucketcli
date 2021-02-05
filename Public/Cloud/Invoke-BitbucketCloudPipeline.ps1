@@ -18,14 +18,15 @@ Function Invoke-BitbucketCloudPipeline {
             ref_name=$Branch
             selector=@{}
             commit=@{}
-            variables= @(
-                $Arguments.Keys | Select-Object `
-                    @{n="key"; e={$_}} , 
-                    @{n="value"; e={$Arguments[$_]}}
-            )
         }
+        variables=($Arguments.Keys |% {
+            @{ 
+                key=$_; 
+                value=$Arguments[$_]
+                secured=$false
+            }
+        })
     }
-
     if ($Commit){
        $payload.target.commit=@{
             hash="$Commit"
