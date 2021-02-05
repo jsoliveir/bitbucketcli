@@ -3,28 +3,46 @@ Function Invoke-BitbucketCloudPipeline {
         [Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
         [Parameter(Mandatory=$true)] [String] $Workspace,
         [Parameter(Mandatory=$true)] [String] $Repository,
-        [Parameter(Mandatory=$true)] [String] $Pipeline,
+        [Parameter(Mandatory=$false)] [String] $Pipeline,
+        [Parameter(Mandatory=$false)] [String] $Commit,
+        [Parameter(Mandatory=$false)] [String] 
+            [ValidateSet ('custom','pull-request','branch')] $Type='branch',
         [Parameter(Mandatory=$false)] [String] $Branch = "master",
-        [Parameter(Mandatory=$false)] [HashTable] $Arguments = @{})
+        [Parameter(Mandatory=$false)] [HashTable] $Arguments = @{}
+        )
 
-    return Invoke-RestMethod `
+    $payload = [PSCustomObject]@{
+        target = @{
+            type="pipeline_ref_target"
+            ref_type="branch"
+            ref_name=$Branch
+            selector=@{}
+            commit=@{}
+            variables= @(
+                $Arguments.Keys | Select-Object `
+                    @{n="key"; e={$_}} , 
+                    @{n="value"; e={$Arguments[$_]}}
+            )
+        }
+    }
+
+    if ($Commit){
+       $payload.target.commit=@{
+            hash="$Commit"
+            type="commit"
+        }
+    }
+
+    if($Type -notlike "branch"){
+        $payload.target.selector=@{
+            type=$Type.ToLower()
+            pattern=$Pipeline
+        }
+    }
+    
+    return ($payload |ConvertTo-Json| Invoke-RestMethod `
         -Method POST `
         -Uri "$($Session.Server)/$($Session.Version)/repositories/${Workspace}/${Repository}/pipelines/" `
         -Headers @{ Authorization = $Session.Authorization} `
-        -ContentType "application/json" `
-        -Body "{
-        `"target`": {
-            `"type`": `"pipeline_ref_target`",
-            `"ref_type`": `"branch`",
-            `"ref_name`": `"$Branch`",
-            `"selector`": {
-                `"type`": `"custom`",
-                `"pattern`": `"$Pipeline`"
-            }
-            },
-            `"variables`": [
-                $(($Arguments.Keys | Select-Object @{n="key"; e={$_}} , @{n="value"; e={$Arguments[$_]}} `
-                    | ConvertTo-Json) -replace "^\[|\]$")
-            ]
-        }"
+        -ContentType "application/json")
 }
