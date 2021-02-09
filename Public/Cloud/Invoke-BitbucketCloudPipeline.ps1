@@ -40,6 +40,10 @@ Function Invoke-BitbucketCloudPipeline {
             pattern=$Pipeline
         }
     }
+
+    if($VerbosePreference){
+        $payload |ConvertTo-Json
+    }
     
     return ($payload |ConvertTo-Json| Invoke-RestMethod `
         -Method POST `
