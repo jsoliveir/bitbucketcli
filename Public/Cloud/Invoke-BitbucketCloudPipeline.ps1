@@ -34,7 +34,7 @@ Function Invoke-BitbucketCloudPipeline {
         }
     }
 
-    if($Type -in ('custon','pull-request')){
+    if($Type -in ('custom','pull-request')){
         $payload.target.selector=@{
             type=$Type.ToLower()
             pattern=$Pipeline
