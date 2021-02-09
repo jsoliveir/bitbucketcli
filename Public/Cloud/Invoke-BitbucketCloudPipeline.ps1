@@ -6,7 +6,7 @@ Function Invoke-BitbucketCloudPipeline {
         [Parameter(Mandatory=$false)] [String] $Pipeline,
         [Parameter(Mandatory=$false)] [String] $Commit,
         [Parameter(Mandatory=$false)] [String] 
-            [ValidateSet ('custom','pull-request','branch')] $Type='branch',
+            [ValidateSet ('custom','pull-request','branch')] $Trigger='branch',
         [Parameter(Mandatory=$false)] [String] $Branch = "master",
         [Parameter(Mandatory=$false)] [HashTable] $Arguments = @{}
         )
@@ -34,9 +34,9 @@ Function Invoke-BitbucketCloudPipeline {
         }
     }
 
-    if($Type -in ('custon','pull-request')){
+    if($Trigger -in ('custon','pull-request')){
         $payload.target.selector=@{
-            type=$Type.ToLower()
+            type=$Trigger.ToLower()
             pattern=$Pipeline
         }
     }
