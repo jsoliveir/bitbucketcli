@@ -42,6 +42,7 @@ Function Invoke-BitbucketCloudPipeline {
     }
 
     if($VerbosePreference){
+        Write-Host "Trigger: $Trigger"
         $payload |ConvertTo-Json
     }
     
