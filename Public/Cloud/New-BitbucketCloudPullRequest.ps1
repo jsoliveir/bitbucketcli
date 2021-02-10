@@ -4,8 +4,8 @@ Function New-BitbucketCloudPullRequest {
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$true)] [String] $SourceBranch,
           [Parameter(Mandatory=$true)] [String] $TargetBranch,
-          [Parameter(Mandatory=$true)] [String] $Description,
-          [Parameter(Mandatory=$true)] [String] $Title)
+          [Parameter(Mandatory=$false)] [String] $Description,
+          [Parameter(Mandatory=$false)] [String] $Title)
   
         $payload = [PSCustomObject]@{
             "title"=$Title
