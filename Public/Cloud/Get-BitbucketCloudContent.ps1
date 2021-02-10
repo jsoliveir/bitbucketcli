@@ -37,6 +37,8 @@ Function Get-BitbucketCloudContent{
                 Write-Host -ForegroundColor DarkGray $_
             }
         }
+
+        $request
         
         if($json.values.path){
             return $json.values
