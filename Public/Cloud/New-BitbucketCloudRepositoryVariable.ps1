@@ -1,7 +1,7 @@
 
 Function New-BitbucketCloudRepositoryVariable {
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$false)] [String] $Key,
           [Parameter(Mandatory=$false)] [String] $Value,

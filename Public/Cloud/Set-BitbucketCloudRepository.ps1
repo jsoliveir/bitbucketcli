@@ -1,7 +1,7 @@
 
 Function Set-BitbucketCloudRepository {
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)] [String] $Name,
           [Parameter(Mandatory=$true)] [String] $ProjectKey,
           [Parameter(Mandatory=$false)] [String] $MainBranch="master")

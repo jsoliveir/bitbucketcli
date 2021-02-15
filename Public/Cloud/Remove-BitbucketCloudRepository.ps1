@@ -1,6 +1,6 @@
 Function Remove-BitbucketCloudRepository {
     param([Parameter(Mandatory=$false)] [PSCustomObject] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)] [String] $Name)
     
     return Invoke-RestMethod `

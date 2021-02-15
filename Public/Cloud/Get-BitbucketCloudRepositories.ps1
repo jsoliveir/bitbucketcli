@@ -2,7 +2,7 @@
 Function Get-BitbucketCloudRepositories {
     param(
         [Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-        [Parameter(Mandatory=$true)] [String] $Workspace,
+        [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
         [Parameter(Mandatory=$false)] [String] $Query="",
         [Parameter(Mandatory=$false)] [Int] $PageLen=100,
         [Parameter(Mandatory=$false)] [Int] $Page=1)

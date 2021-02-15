@@ -2,7 +2,7 @@
 
 Function Get-BitbucketCloudDiffState{
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$true)] [String] $From,
           [Parameter(Mandatory=$true)] [String] $To

@@ -1,6 +1,6 @@
 Function New-BitbucketCloudMerge {
     param([Parameter(Mandatory=$false)] [PSCustomObject] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)]  [String] $Workspace,
+          [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)]  [String] $Repository,
           [Parameter(Mandatory=$true)]  [String]$PullRequestId,
           [Parameter(Mandatory=$false)] [Switch] $CloseBranch=$true,

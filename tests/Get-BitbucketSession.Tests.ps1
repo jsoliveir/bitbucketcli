@@ -26,12 +26,6 @@ Describe "Get-BitbucketSession" {
         It "must_list_server_session" {
             @(Get-BitbucketSession -Server "Server2").Count  | Should -BeExactly 1 
             @(Get-BitbucketSession -Server "Server2").Server | Should -BeExactly "server2"
-            @(Get-BitbucketSession -Server "Server2").IsSelected | Should -Be $false
-        }
-        It "must_list_IsSelected_sessions_only" {
-            @(Get-BitbucketSession).Count  | Should -BeExactly 2
-            @(Get-BitbucketSession).Server | Should -Contain "server"
-            @(Get-BitbucketSession).Server | Should -Contain "server3"
         }
     }
 }

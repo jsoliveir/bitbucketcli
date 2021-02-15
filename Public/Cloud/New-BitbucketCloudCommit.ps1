@@ -1,6 +1,6 @@
 Function New-BitbucketCloudCommit{
    param([Parameter(Mandatory=$false)] [PSCustomObject] $Session = (Get-BitbucketSession),
-         [Parameter(Mandatory=$true)]  [String]    $Workspace,
+         [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
          [Parameter(Mandatory=$true)]  [String]    $Repository,
          [Parameter(Mandatory=$false)] [String]    $Path,
          [Parameter(Mandatory=$false)] [String]    $Content,

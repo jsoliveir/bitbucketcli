@@ -1,7 +1,7 @@
 
 Function New-BitbucketCloudEnvironment {
     param([Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
-          [Parameter(Mandatory=$true)] [String] $Workspace,
+          [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$true)] [String] $Environment,
           [Parameter(Mandatory=$false)] [String] $Type = "test"

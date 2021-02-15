@@ -2,6 +2,7 @@ Function New-BitbucketSession {
     param([Parameter(Mandatory=$false)] [String] $Username,
           [Parameter(Mandatory=$false)] [String] $Password,
           [Parameter(Mandatory=$false)] [String] $Token,
+          [Parameter(Mandatory=$false)] [String] $Workspace,
           [Parameter(Mandatory=$false)] [String] $Server = "https://api.bitbucket.org",
           [Parameter(Mandatory=$false)] [String] $Version = "2.0",
           [Parameter(Mandatory=$false)] [Switch] $UseOAuth )
@@ -22,6 +23,7 @@ Function New-BitbucketSession {
         -Server   $Server `
         -Username $Username `
         -Password $Password `
+        -Workspace $Workspace `
         -Version  $Version `
         -UseOAuth:$UseOAuth
 }

@@ -16,15 +16,15 @@ Describe "Add-BitbucketSession" {
         @($global:BITBUCKETCLI_SESSIONS).Count | Should -BeExactly 1 
     }
     It "must_be_valid" {
-      Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd")
-      $global:BITBUCKETCLI_SESSIONS["test"].Id | Should -Not -Be $Null 
-      $global:BITBUCKETCLI_SESSIONS["test"].IsSelected | Should -Be $true 
-      $global:BITBUCKETCLI_SESSIONS["test"].Username | Should -Be "test" 
-      $global:BITBUCKETCLI_SESSIONS["test"].AccessToken | Should -BeOfType [String]
+      $session = Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd") -Workspace "workspace1"
+      $session.Id | Should -Not -Be $Null 
+      $session.Workspace | Should -Not -Be $Null 
+      $session.Username | Should -Be "test" 
+      $session.AccessToken | Should -BeOfType [String]
     }
     It "must_create_a_session_id" {
       $global:BITBUCKETCLI_SESSIONS=@{}
-      $global:BITBUCKETCLI_SESSIONS["server1"]=([PSCustomObject]@{
+      $global:BITBUCKETCLI_SESSIONS[(New-Guid)]=([PSCustomObject]@{
           IsSelected = $false
       });
       Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd")
@@ -32,17 +32,18 @@ Describe "Add-BitbucketSession" {
     }
   }
   Context "Added Sessions" {
-    It "must_be_only_one_IsSelected" {
+    It "must_be_only_one" {
+      Add-BitbucketSession -Server "test1" -Version "1" -Username "test" -Password $("pwd")
       Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd")
-      Add-BitbucketSession -Server "test2" -Version "1" -Username "test2" -Password $("pwd")
+      Add-BitbucketSession -Server "test" -Version "1" -Username "test2" -Password $("pwd")
       @($global:BITBUCKETCLI_SESSIONS.Keys).Count | Should -BeExactly 2
-      @($global:BITBUCKETCLI_SESSIONS.Values | Where-Object IsSelected -eq $true).Count | Should -BeExactly 1 
+      @($global:BITBUCKETCLI_SESSIONS.Values | Where-Object Server -like "test").Count | Should -BeExactly 1 
     }
   }
   Context "Sessions passwords" {
     It "must_be_secured_string" {
-      Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd")
-      $global:BITBUCKETCLI_SESSIONS["test"].AccessToken | Should -Not -BeNullOrEmpty
+      $session=Add-BitbucketSession -Server "test" -Version "1" -Username "test" -Password $("pwd")
+      $session.AccessToken | Should -Not -BeNullOrEmpty
     }
   }
   Context "Session Created" {

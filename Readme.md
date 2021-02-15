@@ -16,9 +16,10 @@ If you want to just use bitbucket cloud you just need the following
 
 ```powershell
 New-BitbucketSession `
-    -Password "bitbucket_app_password" `
-    -Username "bitbucket_user" `
-    -UseOAuth
+    -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
+    -Username $BITBUCKET_OAUTH_CLIENT_ID `
+    -Workspace $BITBUCKET_WORKSPACE `
+    -UseOAuth 
 ```
 
  (by default the CLI uses bitbucket.org)
@@ -30,26 +31,25 @@ $SESSION_CLOUD = New-BitbucketSession `
     -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
     -Username $BITBUCKET_OAUTH_CLIENT_ID `
     -Server https://api.bitbucket.org `
+    -Workspace $BITBUCKET_WORKSPACE `
     -Version 2.0 `
     -UseOAuth
 
 #create a new session on bitbucket server
 $SESSION_ONPREM = New-BitbucketSession `
     -Server https://bitbucket.server.local `
-    -Password "bitbucket_app_password" `
-    -Username "bitbucket_user_name" `
+    -Password $BITBUCKET_SERVER_PASSWORD `
+    -Username $BITBUCKET_SERVER_USERNAME `
     -Version 1.0 
 
 ```
 
 ### Use the API:
 
-
 ```powershell
 # fetch onprem bitbucket repositories
 Get-BitbucketCloudRepositories `
     -Session $SESSION_CLOUD
-    -Workspace jsoliveir
 
 # fetch onprem bitbucket repositories
 Get-BitbucketServerRepositories `
@@ -62,11 +62,12 @@ Get-BitbucketServerRepositories `
 
 New-BitbucketSession `
     -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
-    -UseOAuth "bitbucket_app_password" `
-    -Username "bitbucket_user" 
+    -Username $BITBUCKET_OAUTH_CLIENT_ID `
+    -Workspace $BITBUCKET_WORKSPACE `
+    -UseOAuth 
 
-Get-BitbucketCloudRepositories `
-    -Workspace jsoliveir
+
+Get-BitbucketCloudRepositories -Verbose
 ```
 ### Available functions
 
@@ -138,6 +139,7 @@ $SESSION_CLOUD = New-BitbucketSession `
     -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
     -Username $BITBUCKET_OAUTH_CLIENT_ID `
     -Server https://api.bitbucket.org `
+    -Workspace $BITBUCKET_WORKSPACE `
     -Version 2.0 `
     -OAuth
 
@@ -165,20 +167,17 @@ $REPOSITORIES_ONPREM | Select-Object id, @{n="repository";e={"$($_.project.key)/
     Remove-BitbucketCloudRepository `
         -Session $SESSION_CLOUD `
         -Name $_.Name `
-        -Workspace sbanken `
         -Verbose 
 
     New-BitbucketCloudRepository `
         -ProjectKey $_.project.key `
         -Session $SESSION_CLOUD `
         -Name $_.Name `
-        -Workspace sbanken `
         -Verbose 
 
     Enable-BitbucketCloudPipelines `
         -Session $SESSION_CLOUD `
         -RepositoryName $_.Name `
-        -Workspace sbanken `
         -Verbose
 
     # mirror onprem repositories tk the cloud
