@@ -16,8 +16,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Tests
         run: pwsh -File ./Run-Tests.ps1
-      - name: Versioning
-        run: pwsh -Command "New-ModuleManifest -Path .\BitbucketCLI.psd1 -ModuleVersion '${VERSION}' -Author '${GITHUB_WORKSPACE}'"
       - name: Publish
         run: pwsh -Command 'Publish-Module -Path . -NuGetApiKey ${{ secrets.NuGetApiKey }}'
       - name: Tagging
