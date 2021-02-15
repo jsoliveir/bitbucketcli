@@ -1,6 +1,10 @@
 # How to use it
 
-### Import the module:
+### Install the module:
+```powershell
+Install-Module -Name BitbucketCLI
+``` 
+### Import the module (locally):
 
 ```powershell
   Import-Module .\BitbucketCLI\*.psm1 -Force
