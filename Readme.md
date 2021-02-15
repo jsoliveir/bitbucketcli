@@ -24,7 +24,7 @@ New-BitbucketSession `
 ### Bitbucket Cloud OAuth authentication
 
 Use the `-OAuth` argument to fetch a token using the workspace client/secret
-https://bitbucket.org/sbanken/workspace/settings/api
+https://bitbucket.org/workspace/workspace/settings/api
 
 ```powershell
 New-BitbucketSession `
