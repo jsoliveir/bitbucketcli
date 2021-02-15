@@ -16,11 +16,23 @@ If you want to just use bitbucket cloud you just need the following
 
 ```powershell
 New-BitbucketSession `
+    -Password $BITBUCKET_USERNAME `
+    -Username $BITBUCKET_PASSWORD `
+    -Workspace $BITBUCKET_WORKSPACE 
+```
+
+### Bitbucket Cloud OAuth authentication
+
+Use the `-OAuth` argument to fetch a token using the workspace client/secret
+https://bitbucket.org/sbanken/workspace/settings/api
+
+```powershell
+New-BitbucketSession `
     -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
     -Username $BITBUCKET_OAUTH_CLIENT_ID `
     -Workspace $BITBUCKET_WORKSPACE `
-    -UseOAuth 
 ```
+
 
  (by default the CLI uses bitbucket.org)
 
