@@ -9,15 +9,13 @@ jobs:
   Publish:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:5.0-alpine
-    env:
-      VERSION: ${{ github.event.inputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Tests
         run: pwsh -File ./Run-Tests.ps1
       - name: Versioning
-        run: pwsh -Command "New-ModuleManifest -Path .\BitbucketCLI.psd1 -ModuleVersion '$VERSION' -Author 'José Oliveira'"
+        run: pwsh -Command "New-ModuleManifest -Path .\BitbucketCLI.psd1 -ModuleVersion '${{ github.event.inputs.version }}' -Author 'José Oliveira'"
       - name: Publish
         run: pwsh -Command 'Publish-Module -Path . -NuGetApiKey ${{ secrets.NuGetApiKey }}'
       - name: Tagging
