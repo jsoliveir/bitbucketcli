@@ -1,3 +1,4 @@
+![Tests](https://github.com/jsoliveir/BitbucketCLI/workflows/Tests/badge.svg)
 # How to use it
 
 ### Install the module:
