@@ -2,7 +2,7 @@ Install-Module Pester -Force -SkipPublisherCheck
 
 Import-Module Pester -MinimumVersion 5.0.4 -Force
 
-Import-Module ./BitbucketCLI.psd1 -Force
+Import-Module ./BitbucketCLI.psm1 -Force
 
 New-Item -ItemType Directory test-results -Force
 
