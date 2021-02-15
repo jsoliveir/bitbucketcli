@@ -3,7 +3,7 @@ name: Tests
 on: [push, pull_request]
 
 jobs:
-  publish:
+  Tests:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:5.0-alpine
 
