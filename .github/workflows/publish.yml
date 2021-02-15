@@ -2,11 +2,13 @@ name: Publish new version
 on:
   workflow_dispatch:
     inputs:
-      name:
+      version:
         description: 'Version (1.0)'
         required: true
 jobs:
   Publish:
+    env:
+      VERSION: ${{ github.event.inputs.version }}
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:5.0-alpine
     steps:
@@ -15,10 +17,10 @@ jobs:
       - name: Tests
         run: pwsh -File ./Run-Tests.ps1
       - name: Versioning
-        run: pwsh -Command "New-ModuleManifest -Path .\BitbucketCLI.psd1 -ModuleVersion '${{ github.event.inputs.version }}' -Author 'José Oliveira'"
+        run: pwsh -Command "New-ModuleManifest -Path .\BitbucketCLI.psd1 -ModuleVersion '${VERSION}' -Author '${GITHUB_WORKSPACE}'"
       - name: Publish
         run: pwsh -Command 'Publish-Module -Path . -NuGetApiKey ${{ secrets.NuGetApiKey }}'
       - name: Tagging
         run: |
           git commit -am "version bump";
-          git tag "v$VERSION" && git push -f --follow-tags
+          git tag "v${VERSION}" && git push -f --follow-tags
