@@ -1,16 +1,16 @@
-name: CI
-
+name: Publish new version
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Version (1.0)'
+        required: true
 jobs:
   publish:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:5.0-alpine
-
+    env:
+      VERSION: ${{ github.event.inputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -18,3 +18,5 @@ jobs:
         run: pwsh -File ./Run-Tests.ps1
       - name: Publish
         run: pwsh -Command 'Publish-Module -Path . -NuGetApiKey ${{ secrets.NuGetApiKey }} 2>&1'
+      - name: Tagging
+        run: git tag "v$VERSION" && git push --follow-tags
