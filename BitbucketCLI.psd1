@@ -12,7 +12,7 @@
 RootModule = 'BitbucketCLI.psm1'
 
 # Version number of this module.
-ModuleVersion = $VERSION
+ModuleVersion = 'automatic'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -26,7 +26,7 @@ Author = 'José Oliveira'
 # Company or vendor of this module
 CompanyName = 'Sbanken'
 
-Descrition = "Bitbucket Rest API Command Line Interface"
+Descrition = 'Bitbucket Rest API Command Line Interface'
 
 }
 

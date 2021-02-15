@@ -9,6 +9,7 @@ jobs:
   Publish:
     env:
       VERSION: ${{ github.event.inputs.version }}
+      DESCRIPTION: Bitbucket Rest API Command Line Interface
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:5.0-alpine
     steps:
@@ -16,9 +17,17 @@ jobs:
         uses: actions/checkout@v2
       - name: Tests
         run: pwsh -File ./Run-Tests.ps1
+      - name: Versioning
+        run: >
+          pwsh -Command "New-ModuleManifest 
+          -Path .\BitbucketCLI.psd1 
+          -ModuleVersion '${VERSION}' 
+          -Author '${GITHUB_WORKSPACE}' 
+          -Description '${DESCRIPTION}'"
       - name: Publish
         run: pwsh -Command 'Publish-Module -Path . -NuGetApiKey ${{ secrets.NuGetApiKey }}'
       - name: Tagging
         run: |
-          git commit -am "version bump";
-          git tag "v${VERSION}" && git push -f --follow-tags
+          git commit -am "Version v${VERSION} published";
+          git remote add github "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git";
+          git tag "v${VERSION}" && git push github -f --follow-tags
