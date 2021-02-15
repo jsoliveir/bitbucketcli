@@ -31,6 +31,7 @@ New-BitbucketSession `
     -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
     -Username $BITBUCKET_OAUTH_CLIENT_ID `
     -Workspace $BITBUCKET_WORKSPACE `
+    -UseOAuth
 ```
 
 
