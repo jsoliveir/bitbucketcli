@@ -14,5 +14,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Tests
+        run: pwsh -File ./Run-Tests.ps1
       - name: Publish
-        run: pwsh -Command 'Publish-Module -Path . -NuGetApiKey ${{ secrets.NuGetApiKey }}'
+        run: pwsh -Command 'Publish-Module -ErrorAction continue -Path . -NuGetApiKey ${{ secrets.NuGetApiKey }}'
