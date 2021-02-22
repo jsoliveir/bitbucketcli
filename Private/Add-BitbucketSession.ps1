@@ -24,7 +24,7 @@ Function Add-BitbucketSession {
     $unique_key = "${Server}:${Workspace}"
 
     $global:BITBUCKETCLI_SESSIONS[$unique_key] = ([PSCustomObject] @{
-        Id              = New-Guid 
+        Id              = [guid]::newguid() 
         Server          = $Server
         Workspace       = $Workspace
         Version         = $Version
