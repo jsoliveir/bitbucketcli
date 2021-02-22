@@ -9,7 +9,7 @@ Function Get-BitbucketSession {
     if(!$All){
         $Sessions =  $Sessions `
         | Where-Object { $_.Server -like "$Server" -and  $_.Id -like "$Id" } `
-        | Select-Object -Last 1
+        | Select-Object -First 1
     }
 
     if(!$Sessions){
