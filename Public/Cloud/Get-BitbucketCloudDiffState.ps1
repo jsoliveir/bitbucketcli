@@ -9,6 +9,6 @@ Function Get-BitbucketCloudDiffState{
           )
     return (Invoke-RestMethod `
         -Method GET `
-        -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/diffstat/$From..$To" `
+        -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/diffstat/$To..$From" `
         -Headers @{ Authorization = $Session.Authorization}).values
 }
