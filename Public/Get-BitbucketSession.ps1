@@ -11,10 +11,7 @@ Function Get-BitbucketSession {
         | Where-Object { $_.Server -like "$Server" -and  $_.Id -like "$Id" } `
         | Select-Object -First 1
     }
-
-    if(!$Sessions){
-        Write-Warning "No sessions have been created."
-    }
+    
     return $Sessions
 }
 
