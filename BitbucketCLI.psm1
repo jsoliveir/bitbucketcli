@@ -16,3 +16,7 @@ $Private | Sort-Object -Property Basename | Foreach-Object{
 Remove-Item Alias:curl -ErrorAction Ignore -Verbose:$false
 
 Export-ModuleMember -Function $Public.Basename -Verbose:$false
+
+$PSDefaultParameterValues = @{
+    "Invoke-RestMethod:TimeoutSec" =  600
+}
