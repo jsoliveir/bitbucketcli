@@ -17,8 +17,8 @@ If you want to just use bitbucket cloud you just need the following
 
 ```powershell
 New-BitbucketSession `
-    -Password $BITBUCKET_USERNAME `
-    -Username $BITBUCKET_PASSWORD `
+    -Password $BITBUCKET_PASSWORD `
+    -Username $BITBUCKET_USERNAME `
     -Workspace $BITBUCKET_WORKSPACE 
 ```
 
