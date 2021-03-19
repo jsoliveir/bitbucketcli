@@ -12,6 +12,6 @@ Function Get-BitbucketSession {
         | Select-Object -First 1
     }
     
-    return $Sessions
+    return $Sessions | Sort-Object Workspace -Descending
 }
 
