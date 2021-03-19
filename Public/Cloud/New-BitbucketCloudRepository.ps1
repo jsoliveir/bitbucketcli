@@ -4,13 +4,23 @@ Function New-BitbucketCloudRepository {
           [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)] [String] $Name,
           [Parameter(Mandatory=$false)] [String] $ProjectKey,
+          [Parameter(Mandatory=$false)] [switch] $Public,
           [Parameter(Mandatory=$false)] [String] $MainBranch="master")
-    return Invoke-RestMethod `
+
+    $payload = [PSCustomObject] @{
+        is_private = ($Public -eq $false)
+    }
+    
+    if($ProjectKey){
+        $payload.project = [PSCustomObject]@{
+            key = $ProjectKey
+        }
+    }
+    return ($payload | ConvertTo-Json | Invoke-RestMethod `
     -Method POST `
     -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Name" `
-    -Body "{ `"is_private`":true, `"project`": { `"key`":`"$ProjectKey`"}  }" `
     -Headers @{
         "Content-Type"= "application/json"
         Authorization = $Session.Authorization 
-    }
+    })
 }
