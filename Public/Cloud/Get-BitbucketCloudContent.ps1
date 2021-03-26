@@ -6,7 +6,9 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$false)] [String] $Path = "/",
           [Parameter(Mandatory=$false)] [String] $Commit="master",
-          [Parameter(Mandatory=$false)] [Int] $PageLen=100
+          [Parameter(Mandatory=$false)] [Int] $PageLen=100,
+          [Parameter(Mandatory=$false)] [Int] $ErrorAction=$ErrorActionPreference
+
     )
 
     try{
