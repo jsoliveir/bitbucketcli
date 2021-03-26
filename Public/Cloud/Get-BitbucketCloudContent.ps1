@@ -47,7 +47,7 @@ Function Get-BitbucketCloudContent{
             return $request.Content
         }      
     }catch{
-        if($ErrorAction -imatch "(Ignore|SilentlyContinue)"){
+        if($ErrorActionPreference -imatch "(Ignore|SilentlyContinue)"){
             throw
         }
     }
