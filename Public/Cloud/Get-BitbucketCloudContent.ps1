@@ -9,6 +9,8 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$false)] [Int] $PageLen=100
     )
 
+    try{
+
     $branch = Get-BitbucketCloudBranches `
         -Session $Session `
         -Workspace $Workspace `
@@ -42,5 +44,10 @@ Function Get-BitbucketCloudContent{
             return $json.values
         }else{
             return $request.Content
-        }        
+        }      
+    }catch{
+        if($ErrorActionPreference -imatch "(Ignore|SilentlyContinue)"){
+            throw
+        }
+    }
 }
