@@ -1,14 +1,13 @@
 
 Function Get-BitbucketCloudContent{
+    [CmdletBinding()]  
     param(
           [Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
           [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
           [Parameter(Mandatory=$false)] [String] $Path = "/",
           [Parameter(Mandatory=$false)] [String] $Commit="master",
-          [Parameter(Mandatory=$false)] [Int] $PageLen=100,
-          [Parameter(Mandatory=$false)] [Int] $ErrorAction=$ErrorActionPreference
-
+          [Parameter(Mandatory=$false)] [Int] $PageLen=100
     )
 
     try{
