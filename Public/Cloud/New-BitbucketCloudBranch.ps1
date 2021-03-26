@@ -7,7 +7,7 @@ Function New-BitbucketCloudBranch {
           [Parameter(Mandatory=$false)] [String] $CommitHash)
     return Invoke-RestMethod `
     -Method POST `
-    -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/refs/tags" `
+    -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/refs/branches" `
     -Body "{ `"name`":`"$Name`", `"target`": { `"hash`":`"$CommitHash`"}  }" `
     -Headers @{
         "Content-Type"= "application/json"
