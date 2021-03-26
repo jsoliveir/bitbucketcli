@@ -50,5 +50,6 @@ Function Get-BitbucketCloudContent{
         if($ErrorActionPreference -notmatch "(Ignore|SilentlyContinue)"){
             throw
         }
+        return $null
     }
 }
