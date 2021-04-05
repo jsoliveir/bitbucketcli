@@ -8,7 +8,7 @@ Function Get-BitbucketCloudPullRequests {
           [Parameter(Mandatory=$false)] $Branch="master",
           [Parameter(Mandatory=$false)] [Switch]$All
           )
-
+    
     return (Invoke-RestMethod `
         -Method GET `
         -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/pullrequests/?q=${Query}&page=${Page}&pagelen=${PageLen}" `
