@@ -5,9 +5,20 @@ Function Get-BitbucketCloudBranches{
           [Parameter(Mandatory=$false)] $Query,
           [Parameter(Mandatory=$false)] $Page=1,
           [Parameter(Mandatory=$false)] $PageLen=50)
+
+        $branches= @();
     
-    return (Invoke-RestMethod `
-        -Method GET `
-        -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/refs/branches/?q=${Query}&page=$Page&pagelen=$PageLen" `
-        -Headers @{ Authorization = $Session.Authorization}).Values
+        while($true){
+            $request = Invoke-RestMethod `
+            -Method GET `
+            -Uri "$($Session.Server)/$($Session.Version)/repositories/$Workspace/$Repository/refs/branches/?q=${Query}&page=$Page&pagelen=$PageLen" `
+            -Headers @{ Authorization = $Session.Authorization}
+            
+            if(!$request.Values) {break;}
+    
+            $branches +=  $request.Values
+            
+            $Page++
+        }
+        return $branches 
 }
