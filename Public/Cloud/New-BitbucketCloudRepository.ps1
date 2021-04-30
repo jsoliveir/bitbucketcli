@@ -9,6 +9,7 @@ Function New-BitbucketCloudRepository {
 
     $payload = [PSCustomObject] @{
         is_private = ($Public -eq $false)
+        project=$null
     }
     
     if($ProjectKey){
