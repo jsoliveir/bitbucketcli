@@ -21,7 +21,7 @@ Function New-BitbucketCloudPullRequest {
                     "name"= $TargetBranch
                 }
             }
-            "reviewers" = $Reviwers
+            "reviewers" = $Reviewers
             "close_source_branch"=$false
         }
 
