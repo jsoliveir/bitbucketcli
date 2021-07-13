@@ -58,7 +58,7 @@ New-BitbucketSession `
 
 > Suggestion: Add the environment variables globally in your OS
 
-> The session creation will become more convenient
+> The session creation will become pretty more convenient
 
 ```powershell
 $env:BITBUCKET_USERNAME = "jsoliveir"
