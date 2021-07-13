@@ -42,7 +42,7 @@ New-BitbucketSession `
 
 ### Bitbucket Cloud Basic Authentication
 
-Create an app password for you account thru the following link:
+Create an app password for your account thru the following link:
 https://bitbucket.org/account/settings/app-passwords/
 
 Then:
@@ -52,6 +52,21 @@ New-BitbucketSession `
     -Workspace sbanken `
     -Password <secret> `
     -Username jsoliveir `
+```
+
+### Bitbucket Cloud Authentication Thru Environment Variables
+
+> Suggestion: Add the environment variables globally in your OS
+
+> The session creation will become more convenient
+
+```powershell
+$env:BITBUCKET_USERNAME = "jsoliveir"
+$env:BITBUCKET_PASSWORD = "<app-password>"
+```
+
+```powershell
+New-BitbucketSession -Workspace sbanken
 ```
 
 

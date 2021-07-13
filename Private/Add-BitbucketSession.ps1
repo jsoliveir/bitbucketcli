@@ -1,7 +1,7 @@
 Function Add-BitbucketSession {
-    param([Parameter(Mandatory=$false)] [String] $Username,
-          [Parameter(Mandatory=$false)] [String] $Password,
-          [Parameter(Mandatory=$false)] [String] $Workspace,
+    param([Parameter(Mandatory=$true)] [String] $Username = $env:BITBUCKET_USERNAME,
+          [Parameter(Mandatory=$true)] [String] $Password = $env:BITBUCKET_PASSWORD,
+          [Parameter(Mandatory=$false)] [String] $Workspace = $Username,
           [Parameter(Mandatory=$false)] [String] $Token,
           [Parameter(Mandatory=$true)]  [String] $Server,
           [Parameter(Mandatory=$true)]  [String] $Version,
