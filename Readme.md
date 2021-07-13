@@ -29,7 +29,7 @@ New-BitbucketSession `
 
 ### Bitbucket Cloud OAuth authentication
 
-Use the `-OAuth` argument to fetch a token using the workspace client/secret
+Use the `-UseOAuth` argument to fetch a token using the workspace client/secret
 https://bitbucket.org/workspace/workspace/settings/api
 
 ```powershell
@@ -40,12 +40,27 @@ New-BitbucketSession `
     -UseOAuth
 ```
 
+### Bitbucket Cloud Basic Authentication
 
- (by default the CLI uses bitbucket.org)
+Create an app password for you account thru the following link:
+https://bitbucket.org/account/settings/app-passwords/
+
+Then:
 
 ```powershell
+New-BitbucketSession `
+    -Workspace sbanken `
+    -Password <secret> `
+    -Username jsoliveir `
+```
 
+
+### Bitbucket Multiple Sessions
+
+```powershell
 #create a new session on bitbucket cloud
+# (by default the server is bitbucket.org)
+
 $SESSION_CLOUD = New-BitbucketSession `
     -Password $BITBUCKET_OAUTH_CLIENT_SECRET `
     -Username $BITBUCKET_OAUTH_CLIENT_ID `
