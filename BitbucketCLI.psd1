@@ -26,7 +26,7 @@ Author = 'José Oliveira'
 # Company or vendor of this module
 CompanyName = 'Sbanken'
 
-Descrition = 'Bitbucket Rest API Command Line Interface'
+Description = 'Bitbucket Rest API Command Line Interface'
 
 }
 
