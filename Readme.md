@@ -18,13 +18,20 @@ Get-Command -Module BitbucketCLI
 
 ### Start a session:
 
-If you want to just use bitbucket cloud you just need the following
+If you want to use bitbucket cloud you just need the following
 
+# Authentication using the Web Browser 
+```powershell
+New-BitbucketSession -Workspace "sbanken"
+```
+
+# Authentication using Client Credentials 
 ```powershell
 New-BitbucketSession `
-    -Password $BITBUCKET_PASSWORD `
-    -Username $BITBUCKET_USERNAME `
-    -Workspace $BITBUCKET_WORKSPACE 
+    -Password "<ClientSecret>" `
+    -Username "<ClientId>" `
+    -Workspace "sbanken" `
+    -UseOAuth
 ```
 
 ### Bitbucket Cloud OAuth authentication

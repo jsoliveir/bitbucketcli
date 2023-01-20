@@ -3,7 +3,7 @@ image: mcr.microsoft.com/powershell
 pipelines:
   default:
     - step:
-        name: Run Tests
+        name: Unit Tests
         script:
-          - pwsh -File ./Run-Tests.ps1
+          - pwsh -File ./Run-UnitTests.ps1
          
