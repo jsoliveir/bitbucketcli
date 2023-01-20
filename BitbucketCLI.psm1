@@ -4,19 +4,13 @@
 #>
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 
-$Public  = @( Get-ChildItem -Path $PSScriptRoot\Public\ -Filter *.ps1 -Recurse -ErrorAction SilentlyContinue -Verbose:$false )
-$Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue -Verbose:$false )
-
-$Public | Sort-Object -Property Basename | Foreach-Object{
-    . $_.FullName
-}
-$Private | Sort-Object -Property Basename | Foreach-Object{
+Get-ChildItem -Path $PSScriptRoot\src\ -Filter *.ps1 -Recurse -Verbose:$false  | Foreach-Object {
     . $_.FullName
 }
 
 Remove-Item Alias:curl -ErrorAction Ignore -Verbose:$false
 
-Export-ModuleMember -Function $Public.Basename -Verbose:$false
+Export-ModuleMember -Function * -Verbose:$false
 
 $PSDefaultParameterValues = @{
     "Invoke-RestMethod:TimeoutSec" =  600
