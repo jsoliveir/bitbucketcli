@@ -6,6 +6,7 @@ Function Request-BitbucketCloudUserToken {
 
     if($env:BITBUCKET_OAUTH_TIME -and $env:BITBUCKET_OAUTH_TOKEN -and $env:BITBUCKET_OAUTH_EXPIRE_IN){
         $IsTokenExpired = [DateTime]::Parse($env:BITBUCKET_OAUTH_TIME).AddSeconds($env:BITBUCKET_OAUTH_EXPIRE_IN) -lt (Get-Date)
+        Write-Warning "Retrieving token from the cache"
         if (!$Force -and !$IsTokenExpired){
             return $env:BITBUCKET_OAUTH_TOKEN
         }
