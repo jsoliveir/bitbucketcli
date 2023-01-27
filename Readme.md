@@ -8,11 +8,7 @@ Install-Module -Name BitbucketCLI
 ### Import the module (locally):
 
 ```powershell
-Import-Module BitbucketCLI
-```
-### View available commands in BitbucketCLI
-```powershell
-Get-Command -Module BitbucketCLI 
+Import-Module BitbucketCLI.psm1
 ```
 
 # Available Functions (API):
@@ -30,12 +26,12 @@ If you want to use bitbucket cloud you just need the following
 
 ### Authenticating using the Web Browser 
 ```powershell
-New-BitbucketSession -Workspace "sbanken"
+New-BitbucketSession -Workspace <workspace>
 ```
 
 ### Authenticating using Client Credentials 
 ```powershell
-New-BitbucketSession -Workspace "sbanken" `
+New-BitbucketSession -Workspace <workspace> `
     -Password "<ClientSecret>" `
     -Username "<ClientId>" `
     -UseOAuth
@@ -49,24 +45,9 @@ https://bitbucket.org/account/settings/app-passwords/
 Then:
 
 ```powershell
-New-BitbucketSession -Workspace sbanken `
+New-BitbucketSession -Workspace <workspace> `
     -Password "<app-password>" `
     -Username "jsoliveir" `
-```
-
-### Authentication using environment variables
-
-> Suggestion: Add the environment variables globally in your OS
-
-> The session creation will become pretty more convenient
-
-```powershell
-$env:BITBUCKET_USERNAME = "<username or client id>"
-$env:BITBUCKET_PASSWORD = "<password or client secret>"
-```
-
-```powershell
-New-BitbucketSession -Workspace sbanken
 ```
 
 ## Bitbucket Server
@@ -78,6 +59,22 @@ New-BitbucketSession -Workspace sbanken
     -Username $BITBUCKET_SERVER_USERNAME
 ```
 
+
+# Examples
+
+## Fetching the a List for Repositories
+
+```powershell
+New-BitbucketSession -Workspace organization
+Get-BitbucketCloudRepositories 
+```
+
+## Fetching branches of a repository
+
+```powershell
+New-BitbucketSession -Workspace organization
+Get-BitbucketCloudBranches -Repository bitbucketcli
+```
 
 ## Using multiple Bitucket sessions
 
@@ -101,8 +98,6 @@ Get-BitbucketCloudRepositories -Session $SESSION_CLOUD
 Get-BitbucketCloudRepositories -Session $SESSION_ONPREM
 
 ```
-
-# Examples
 
 ## Mirroring repositories from bitbucket server to bitbucket cloud:
 
