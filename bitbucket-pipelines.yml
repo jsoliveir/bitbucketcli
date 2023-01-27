@@ -1,4 +1,4 @@
-image: mcr.microsoft.com/powershell
+image: mcr.microsoft.com/powershell:alpine-3.14
 
 pipelines:
   default:
@@ -6,4 +6,28 @@ pipelines:
         name: Unit Tests
         script:
           - pwsh -File ./Run-UnitTests.ps1
-         
+  custom:
+    branch-restrictions:
+      - variables:
+          - name: "RepositoryPattern"
+          - name: "BranchPattern"
+            default: master
+            allowed-values:
+              - feature/*
+              - master
+              - main
+          - name: "AllowedGroup"
+            default: developers
+            allowed-values:
+              - administrators
+              - developers
+      - step:
+          name: "Apply branch restrictions"
+          max-time: 120
+          trigger: automatic
+          size: "1x"
+          script:
+            - scripts/Update-BitbucketBrachRestrictions.ps1
+              -Repository $RepositoryPattern
+              -Branch $BranchPattern
+              -Groups $AllowedGroup

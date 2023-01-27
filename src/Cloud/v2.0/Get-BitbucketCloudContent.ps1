@@ -5,10 +5,10 @@ Function Get-BitbucketCloudContent{
           [Parameter(Mandatory=$false)] $Session = (Get-BitbucketSession),
           [Parameter(Mandatory=$false)] [String] $Workspace = $Session.Workspace,
           [Parameter(Mandatory=$true)] [String] $Repository,
-          [Parameter(Mandatory=$false)] [String] $Path = "/",
           [Parameter(Mandatory=$false)] [String] $Commit="master",
           [Parameter(Mandatory=$false)] [String] $Branch,
-          [Parameter(Mandatory=$false)] [Int] $PageLen=100
+          [Parameter(Mandatory=$false)] [Int] $PageLen=100,
+          [Parameter(Mandatory=$false)] [String] $Path
     )
 
     try{
@@ -23,11 +23,6 @@ Function Get-BitbucketCloudContent{
             -ErrorAction SilentlyContinue `
         | Where-Object name -imatch "$Commit" `
         | Select-Object -First 1
-
-        if($branch) { $Commit = $branch.target.hash }
-        $Path = $Path -replace "\\","/"
-        $Path = $Path -replace "^/",""
-        $Path = $Path -replace "^\.\/",""
 
         $request = (Invoke-WebRequest `
             -Uri "$($Session.BaseUrl)/2.0/repositories/${Workspace}/${Repository}/src/${Commit}/${Path}?q=${Query}&pagelen=${PageLen}" `
