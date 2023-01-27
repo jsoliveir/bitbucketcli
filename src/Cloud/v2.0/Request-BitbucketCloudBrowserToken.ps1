@@ -1,4 +1,4 @@
-Function Request-BitbucketCloudUserToken {
+Function Request-BitbucketCloudBrowserToken {
     param(
         [String] $ClientId,
         [Switch] $Force
@@ -41,7 +41,7 @@ Function Request-BitbucketCloudUserToken {
             [string]$html = "
                 <script>window.close()</script>
                 <h1>Success!</h1> 
-                <p>Token has been acquired.</p> This window can closed." 
+                <p>Token has acquired.</p> You can close this window." 
             $buffer = [System.Text.Encoding]::UTF8.GetBytes($html)
             $context.Response.ContentLength64 = $buffer.Length
             $context.Response.OutputStream.Write($buffer, 0, $buffer.Length)
