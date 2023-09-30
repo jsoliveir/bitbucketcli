@@ -11,4 +11,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run Tests
-        run: pwsh -File ./Run-Tests.ps1
+        run: pwsh -File ./Run-UnitTests.ps1
